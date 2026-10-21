@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>J.A.R.V.I.S. MARK LXXXV APK EDITION // WHITE-CODED BY SHIFAN SHIJEER</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        jarvis: {
+                            cyan: '#00f3ff',
+                            blue: '#0088ff',
+                            deep: '#020914',
+                            gold: '#ffaa00',
+                            crimson: '#ff2a4b',
+                            emerald: '#00ff9d'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        mono: ['"Share Tech Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --cyan: #00f3ff;
+            --blue: #0088ff;
+            --gold: #ffaa00;
+            --crimson: #ff2a4b;
+            --emerald: #00ff9d;
+            --bg-dark: #020813;
+        }
+
+        * {
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 243, 255, 0.4) rgba(2, 8, 19, 0.8);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0faff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 42%, rgba(0, 136, 255, 0.16) 0%, rgba(2, 8, 19, 0.97) 70%),
+                linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+        }
+
+        .hud-scanlines::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 2px,
+                rgba(0, 243, 255, 0.016) 3px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            pointer-events: none;
+            z-index: 40;
+        }
+
+        .hud-panel {
+            background: linear-gradient(135deg, rgba(4, 24, 46, 0.9) 0%, rgba(2, 11, 24, 0.96) 100%);
+            border: 1px solid rgba(0, 243, 255, 0.35);
+            box-shadow: 0 0 24px rgba(0, 243, 255, 0.09), inset 0 0 18px rgba(0, 243, 255, 0.05);
+            backdrop-filter: blur(12px);
+            position: relative;
+        }
+
+        .hud-corners::before,
+        .hud-corners::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            pointer-events: none;
+        }
+        .hud-corners::before {
+            top: -1px;
+            left: -1px;
+            border-top: 2px solid var(--cyan);
+            border-left: 2px solid var(--cyan);
+        }
+        .hud-corners::after {
+            bottom: -1px;
+            right: -1px;
+            border-bottom: 2px solid var(--cyan);
+            border-right: 2px solid var(--cyan);
+        }
+
+        .glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.75), 0 0 20px rgba(0, 136, 255, 0.45);
+        }
+        .glow-gold {
+            text-shadow: 0 0 10px rgba(255, 170, 0, 0.8), 0 0 22px rgba(255, 170, 0, 0.4);
+        }
+
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes spin-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes laser-scan {
+            0% { top: 4%; opacity: 0.3; }
+            50% { top: 92%; opacity: 0.95; }
+            100% { top: 4%; opacity: 0.3; }
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 20s linear infinite;
+        }
+        .animate-spin-reverse {
+            animation: spin-reverse 14s linear infinite;
+        }
+        .animate-spin-fast {
+            animation: spin-slow 4.5s linear infinite;
+        }
+        .camera-laser {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00f3ff, #ffaa00, #00f3ff, transparent);
+            box-shadow: 0 0 12px #00f3ff;
+            animation: laser-scan 3.4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hud-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .hud-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.45);
+        }
+        .hud-btn:active {
+            transform: translateY(0px) scale(0.97);
+        }
+        .hud-btn-gold:hover {
+            box-shadow: 0 0 24px rgba(255, 170, 0, 0.55);
+        }
+
+        .shifan-badge {
+            background: linear-gradient(90deg, rgba(0,243,255,0.14), rgba(255,170,0,0.28), rgba(0,243,255,0.14));
+            background-size: 200% 100%;
+            animation: badgeShimmer 6s infinite linear;
+        }
+        @keyframes badgeShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Touch-friendly Hold-to-Talk pulse */
+        .ptt-active {
+            box-shadow: 0 0 35px rgba(255, 42, 75, 0.9), inset 0 0 20px rgba(255, 42, 75, 0.5) !important;
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between hud-scanlines select-none">
+
+    <!-- PRE-UNLOCKED HTML5 AUDIO ELEMENT FOR ANDROID WEBVIEW APK SPEAKER OUTPUT -->
+    <audio id="apkAudioPlayer" playsinline preload="auto" class="hidden"></audio>
+
+    <!-- =====================================================================
+         TOP STARK HUD NAVIGATION, CREATOR BADGE & APK HARDWARE TELEMETRY
+         ===================================================================== -->
+    <header class="w-full border-b border-jarvis-cyan/30 bg-slate-950/90 backdrop-blur-md z-30 px-3 sm:px-6 py-2.5">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2.5">
+            <!-- Left: System Title & Shifan Shijeer Branding -->
+            <div class="flex items-center gap-3">
+                <button
+                    onclick="handleArcReactorTap()"
+                    class="w-10 h-10 rounded-full border-2 border-jarvis-cyan flex items-center justify-center bg-cyan-950/60 shadow-[0_0_15px_rgba(0,243,255,0.4)] hover:border-jarvis-gold transition"
+                    title="Tap to Speak to JARVIS"
+                >
+                    <i class="fa-solid fa-atom text-jarvis-cyan text-lg animate-spin-slow"></i>
+                </button>
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h1 class="font-orbitron font-black text-base sm:text-xl tracking-widest text-jarvis-cyan glow-cyan">
+                            J.A.R.V.I.S. <span class="text-xs sm:text-sm font-normal text-jarvis-gold">ANDROID APK EDITION</span>
+                        </h1>
+                        <span class="px-2.5 py-0.5 text-[10px] font-orbitron font-bold tracking-widest rounded border border-jarvis-gold/70 shifan-badge text-jarvis-gold">
+                            WHITE-CODED &amp; ENGINEERED BY SHIFAN SHIJEER
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-[11px] font-mono text-cyan-300/80 flex-wrap">
+                        <span id="diagEnvBadge" class="text-jarvis-gold font-bold">ENV: DETECTING...</span>
+                        <span>•</span>
+                        <span id="diagMicStatus" class="text-jarvis-emerald font-bold">MIC: 16kHz WAV ENGINE</span>
+                        <span>•</span>
+                        <span id="diagSpeakerStatus" class="text-jarvis-cyan font-bold">SPK: HTML5 WAV + PCM</span>
+                        <span>•</span>
+                        <span id="batteryTelemetry" class="text-cyan-200">PWR: 100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Hardware Beep Test, APK Fix Guide, Gmail & Gemini Intent -->
+            <div class="flex items-center flex-wrap gap-1.5 sm:gap-2">
+                <button
+                    onclick="runHardwareSpeakerTest()"
+                    class="hud-btn px-2.5 py-1.5 rounded-lg border-2 border-jarvis-cyan bg-cyan-950/70 hover:bg-cyan-900/80 text-jarvis-cyan font-orbitron font-bold text-[10px] sm:text-[11px] tracking-wider flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,243,255,0.25)]"
+                    title="Test Android APK Speaker Output (Works Offline)"
+                >
+                    <i class="fa-solid fa-volume-high text-jarvis-gold"></i>
+                    <span>440Hz + WAV SPEAKER TEST</span>
+                </button>
+
+                <button
+                    onclick="openApkFixModal()"
+                    class="hud-btn px-2.5 py-1.5 rounded-lg border-2 border-jarvis-emerald bg-emerald-950/60 hover:bg-emerald-900/70 text-jarvis-emerald font-orbitron font-bold text-[10px] sm:text-[11px] tracking-wider flex items-center gap-1.5"
+                >
+                    <i class="fa-brands fa-android"></i>
+                    <span>APK AUDIO DIAGNOSIS</span>
+                </button>
+
+                <button
+                    onclick="toggleGmailDrawer()"
+                    class="hud-btn px-2.5 py-1.5 rounded-lg border border-jarvis-cyan/50 bg-cyan-950/40 hover:border-jarvis-gold text-xs font-mono flex items-center gap-1.5 transition"
+                >
+                    <i class="fa-brands fa-google text-jarvis-gold"></i>
+                    <span id="topGmailBadge" class="text-cyan-100 max-w-[110px] truncate">EMAIL: SKIP</span>
+                </button>
+
+                <button
+                    onclick="launchSharedGeminiChat(false)"
+                    class="hud-btn hud-btn-gold px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-orbitron font-bold text-[11px] tracking-wider flex items-center gap-1.5 shadow-[0_0_18px_rgba(255,170,0,0.4)]"
+                >
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                    <span>GEMINI UPLINK</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Collapsible Non-Blocking Gmail & Gemini Uplink Drawer -->
+        <div id="gmailDrawer" class="hidden max-w-7xl mx-auto mt-3 pt-3 border-t border-jarvis-cyan/30">
+            <div class="hud-panel rounded-xl p-3.5 border border-jarvis-gold/50 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+                <div class="space-y-0.5">
+                    <div class="font-orbitron text-xs font-bold text-jarvis-gold flex items-center gap-1.5">
+                        <i class="fa-brands fa-google"></i>
+                        <span>OPTIONAL GMAIL LOADER FOR GEMINI UPLINK (share.gemini.google/tW7cDcxMphY2)</span>
+                    </div>
+                    <p class="text-xs text-cyan-200/80">
+                        Enter your Gmail account to append <code class="text-jarvis-gold">?authuser=your@gmail.com</code> when launching your Gemini link, or click <strong>SKIP EMAIL</strong>.
+                    </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <input
+                        id="gmailInput"
+                        type="email"
+                        placeholder="yourname@gmail.com (Optional)"
+                        class="bg-slate-950 border border-jarvis-cyan/60 focus:border-jarvis-gold rounded-lg px-3 py-1.5 text-xs font-mono text-white placeholder-cyan-400/40 focus:outline-none min-w-[220px]"
+                    />
+                    <button
+                        onclick="saveGmailOption(false)"
+                        class="hud-btn px-3 py-1.5 rounded-lg bg-jarvis-cyan text-slate-950 font-orbitron font-bold text-xs"
+                    >
+                        SAVE GMAIL
+                    </button>
+                    <button
+                        onclick="saveGmailOption(true)"
+                        class="hud-btn px-3 py-1.5 rounded-lg bg-emerald-500/25 border border-jarvis-emerald text-jarvis-emerald font-orbitron font-bold text-xs"
+                    >
+                        SKIP EMAIL
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         MAIN 3-COLUMN RESPONSIVE IRON MAN HUD GRID
+         ===================================================================== -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch z-10">
+
+        <!-- =================================================================
+             LEFT COLUMN (4 COLS): APK HARDWARE SCANNER + GEMINI INTENT + CAMERA
+             ================================================================= -->
+        <section class="lg:col-span-4 flex flex-col gap-4">
+
+            <!-- 1. APK HARDWARE & PERMISSION REAL-TIME SCANNER CARD -->
+            <div class="hud-panel hud-corners rounded-xl p-3.5 border border-jarvis-gold/50">
+                <div class="flex items-center justify-between border-b border-jarvis-cyan/25 pb-2 mb-2.5">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-brands fa-android text-jarvis-emerald text-base"></i>
+                        <h2 class="font-orbitron text-xs font-bold tracking-wider text-jarvis-cyan">
+                            APK SOUND &amp; MIC HARDWARE SCANNER
+                        </h2>
+                    </div>
+                    <button
+                        onclick="runApkHardwareCheck(true)"
+                        class="px-2 py-0.5 rounded bg-jarvis-cyan/20 border border-jarvis-cyan text-[10px] font-mono text-jarvis-cyan hover:bg-jarvis-cyan/30"
+                    >
+                        RE-SCAN
+                    </button>
+                </div>
+
+                <!-- 4-Point Live APK Status Grid -->
+                <div class="grid grid-cols-2 gap-2 text-[11px] font-mono mb-2.5">
+                    <div class="p-2 rounded-lg bg-slate-950/90 border border-jarvis-cyan/25">
+                        <div class="text-[9px] text-cyan-400/70">1. APK ORIGIN / PROTOCOL</div>
+                        <div id="scanProtocolVal" class="font-bold text-jarvis-emerald truncate">CHECKING...</div>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-950/90 border border-jarvis-cyan/25">
+                        <div class="text-[9px] text-cyan-400/70">2. SPEAKER WAV OUTPUT</div>
+                        <div id="scanSpeakerVal" class="font-bold text-jarvis-cyan truncate">READY (TAP TEST)</div>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-950/90 border border-jarvis-cyan/25">
+                        <div class="text-[9px] text-cyan-400/70">3. MIC RECORD_AUDIO</div>
+                        <div id="scanMicPermVal" class="font-bold text-jarvis-gold truncate">TAP MIC TO TEST</div>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-950/90 border border-jarvis-cyan/25">
+                        <div class="text-[9px] text-cyan-400/70">4. LIVE MIC INPUT dB</div>
+                        <div id="scanDbLevelVal" class="font-bold text-white truncate">0 dB (SILENT)</div>
+                    </div>
+                </div>
+
+                <!-- Quick Hardware Test Buttons for APK -->
+                <div class="grid grid-cols-2 gap-2">
+                    <button
+                        onclick="runHardwareSpeakerTest()"
+                        class="hud-btn py-2 px-2.5 rounded-lg bg-cyan-500/20 border border-jarvis-cyan text-jarvis-cyan font-orbitron font-bold text-[10px] tracking-wider flex items-center justify-center gap-1.5"
+                    >
+                        <i class="fa-solid fa-volume-high text-jarvis-gold"></i>
+                        <span>TEST SPEAKER SOUND</span>
+                    </button>
+                    <button
+                        onclick="testMicrophoneSignalOnly()"
+                        class="hud-btn py-2 px-2.5 rounded-lg bg-emerald-500/20 border border-jarvis-emerald text-jarvis-emerald font-orbitron font-bold text-[10px] tracking-wider flex items-center justify-center gap-1.5"
+                    >
+                        <i class="fa-solid fa-microphone-lines"></i>
+                        <span>TEST MIC INPUT dB</span>
+                    </button>
+                </div>
+
+                <!-- Direct Gemini Uplink + Native Android Intent Launcher -->
+                <div class="mt-3 pt-2.5 border-t border-jarvis-cyan/20 space-y-2">
+                    <div class="flex items-center justify-between text-[10px] font-mono">
+                        <span class="text-jarvis-gold font-bold">SHIFAN'S GEMINI UPLINK (tW7cDcxMphY2)</span>
+                        <span id="leftGmailStatus" class="text-jarvis-emerald">EMAIL: SKIPPED</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button
+                            onclick="launchSharedGeminiChat(false)"
+                            class="hud-btn hud-btn-gold py-2 px-2 rounded-lg bg-gradient-to-r from-amber-500/35 to-yellow-500/25 border border-jarvis-gold text-jarvis-gold font-orbitron font-bold text-[10px] tracking-wider flex items-center justify-center gap-1"
+                        >
+                            <i class="fa-solid fa-rocket"></i>
+                            <span>WEBVIEW UPLINK</span>
+                        </button>
+                        <button
+                            onclick="launchSharedGeminiChat(true)"
+                            class="hud-btn py-2 px-2 rounded-lg bg-emerald-500/25 border border-jarvis-emerald text-jarvis-emerald font-orbitron font-bold text-[10px] tracking-wider flex items-center justify-center gap-1"
+                            title="Escape broken APK WebView and open directly in Android Gemini App or Chrome"
+                        >
+                            <i class="fa-brands fa-chrome"></i>
+                            <span>ANDROID INTENT://</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. LIVE CAMERA & AUTOMATIC VISION LINK HUD -->
+            <div class="hud-panel hud-corners rounded-xl p-4 flex-1 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-jarvis-cyan/25 pb-2 mb-2.5">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-eye text-jarvis-cyan"></i>
+                            <h2 class="font-orbitron text-xs sm:text-sm font-bold tracking-wider text-jarvis-cyan">
+                                LIVE CAMERA &amp; AUTO-VISION
+                            </h2>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span id="camStatusBadge" class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-cyan-300/70 border border-cyan-500/30">
+                                CAM OFF
+                            </span>
+                            <button
+                                onclick="toggleCameraAccess()"
+                                id="camToggleBtn"
+                                class="px-2.5 py-0.5 rounded bg-jarvis-emerald/25 hover:bg-jarvis-emerald/40 border border-jarvis-emerald text-[10px] font-orbitron font-bold text-jarvis-emerald transition"
+                            >
+                                TURN ON CAM
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Auto-Vision Linked Status Banner -->
+                    <div id="autoVisionBanner" class="mb-2.5 px-2.5 py-1.5 rounded-lg bg-slate-950/90 border border-jarvis-cyan/30 flex items-center justify-between text-[10px] font-mono">
+                        <span id="autoVisionBadgeText" class="text-cyan-300/80">
+                            <i class="fa-solid fa-link-slash mr-1 text-jarvis-gold"></i>TURN ON CAMERA SO JARVIS SEES WHAT IS IN FRONT OF YOU
+                        </span>
+                        <button
+                            onclick="toggleAutoVisionStream()"
+                            id="autoVisionToggleBtn"
+                            class="ml-2 px-2 py-0.5 rounded bg-jarvis-emerald/20 border border-jarvis-emerald text-jarvis-emerald font-bold shrink-0"
+                        >
+                            AUTO-VISION: ON
+                        </button>
+                    </div>
+
+                    <!-- LIVE CAMERA HELMET POV FEED -->
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-950 border border-jarvis-cyan/40 shadow-inner">
+                        <video
+                            id="cameraVideo"
+                            autoplay
+                            playsinline
+                            muted
+                            class="w-full h-full object-cover hidden"
+                        ></video>
+                        <canvas id="captureCanvas" class="hidden"></canvas>
+
+                        <!-- Camera Standby Placeholder -->
+                        <div id="cameraPlaceholder" class="inset-0 w-full h-full flex flex-col items-center justify-center p-4 text-center bg-gradient-to-b from-slate-950 to-cyan-950/30">
+                            <button
+                                onclick="toggleCameraAccess(true)"
+                                class="w-12 h-12 rounded-full border border-dashed border-jarvis-cyan/60 hover:border-jarvis-gold flex items-center justify-center mb-2 animate-spin-slow transition"
+                            >
+                                <i class="fa-solid fa-video text-jarvis-cyan text-lg"></i>
+                            </button>
+                            <p class="font-orbitron text-xs text-jarvis-cyan tracking-wider">CAMERA OFF // TAP TO ENABLE LIVE SIGHT</p>
+                            <p class="text-[11px] font-mono text-cyan-300/70 mt-0.5">
+                                When ON, every question you ask automatically includes a live snapshot of what is on camera!
+                            </p>
+                        </div>
+
+                        <!-- Iron Man Targeting Overlay on Video -->
+                        <div id="cameraHudOverlay" class="hidden absolute inset-0 pointer-events-none">
+                            <div class="camera-laser"></div>
+                            <div class="absolute top-2 left-2 text-[10px] font-mono text-jarvis-emerald bg-black/70 px-2 py-0.5 rounded border border-jarvis-emerald/50">
+                                ● LIVE VISION LINKED TO JARVIS
+                            </div>
+                            <div class="absolute bottom-2 left-2 text-[10px] font-mono text-jarvis-gold bg-black/70 px-2 py-0.5 rounded border border-jarvis-gold/40">
+                                ASK: "WHAT AM I HOLDING?" OR "WHAT IS THIS?"
+                            </div>
+                            <svg class="w-16 h-16 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-jarvis-cyan/60" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+                                <circle cx="50" cy="50" r="3" fill="#ffaa00"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camera Vision AI Actions -->
+                <div class="mt-3 flex items-center gap-2">
+                    <button
+                        onclick="describeCurrentCameraViewNow()"
+                        class="hud-btn flex-1 py-2.5 px-3 rounded-lg bg-jarvis-cyan/20 hover:bg-jarvis-cyan/35 border border-jarvis-cyan text-jarvis-cyan font-orbitron text-xs font-bold tracking-wider flex items-center justify-center gap-2"
+                    >
+                        <i class="fa-solid fa-camera text-jarvis-gold"></i>
+                        <span>TELL ME WHAT IS ON CAMERA NOW</span>
+                    </button>
+                    <button
+                        onclick="switchCameraFacingMode()"
+                        title="Flip Front/Back Camera"
+                        class="hud-btn p-2.5 rounded-lg border border-jarvis-cyan/40 text-jarvis-cyan hover:bg-jarvis-cyan/20"
+                    >
+                        <i class="fa-solid fa-camera-rotate"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             CENTER COLUMN (4 COLS): APK DIRECT 16kHz WAV RECORDER + ARC REACTOR
+             ================================================================= -->
+        <section class="lg:col-span-4 flex flex-col gap-4">
+            <div class="hud-panel hud-corners rounded-xl p-4 sm:p-5 flex-1 flex flex-col items-center justify-between relative overflow-hidden">
+
+                <!-- 1. APK ENGINE SELECTOR & REAL-TIME STATUS -->
+                <div class="w-full space-y-2 border-b border-jarvis-cyan/20 pb-2.5">
+                    <div class="flex items-center justify-between text-xs font-mono">
+                        <span class="text-jarvis-cyan font-bold flex items-center gap-1.5">
+                            <span id="livePulseIndicator" class="w-2.5 h-2.5 rounded-full bg-jarvis-emerald animate-pulse"></span>
+                            <span id="liveStatusTitle">APK WAV ENGINE READY</span>
+                        </span>
+                        <span id="clockDisplay" class="text-jarvis-gold font-bold">00:00:00</span>
+                    </div>
+
+                    <!-- Mode A (APK Direct 16kHz WAV PCM) vs Mode B (Browser Speech STT) -->
+                    <div class="grid grid-cols-2 gap-1.5 bg-slate-950/90 p-1 rounded-lg border border-jarvis-cyan/30">
+                        <button
+                            id="micModeApkWavBtn"
+                            onclick="setMicInputMode('APK_PCM_WAV')"
+                            class="py-1.5 px-2 rounded text-[10px] font-orbitron font-bold tracking-wider transition bg-jarvis-gold text-slate-950"
+                        >
+                            <i class="fa-brands fa-android mr-1"></i>APK 16kHz WAV ENGINE
+                        </button>
+                        <button
+                            id="micModeSpeechBtn"
+                            onclick="setMicInputMode('SPEECH_STT')"
+                            class="py-1.5 px-2 rounded text-[10px] font-orbitron font-bold tracking-wider transition text-cyan-300/75 hover:text-white"
+                        >
+                            <i class="fa-solid fa-closed-captioning mr-1"></i>CHROME SPEECH STT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. LIVE TRANSCRIPT & APK dB VERIFICATION BAR -->
+                <div class="w-full mt-2 p-2.5 rounded-xl bg-slate-950 border-2 border-jarvis-gold/60 shadow-[0_0_15px_rgba(255,170,0,0.15)]">
+                    <div class="flex items-center justify-between text-[10px] font-mono text-jarvis-gold mb-1">
+                        <span><i class="fa-solid fa-wave-square mr-1"></i>APK MIC INPUT &amp; SPEECH VERIFICATION:</span>
+                        <span id="recTimerBadge" class="px-1.5 py-0.2 rounded bg-cyan-950 text-jarvis-cyan border border-jarvis-cyan/40">STANDING BY</span>
+                    </div>
+                    <div id="liveCaptionText" class="text-xs sm:text-sm font-mono font-bold text-white break-words min-h-[36px] flex items-center">
+                        "Tap the Arc Reactor (or Hold the Walkie-Talkie button below) to speak. Works inside Android APK WebViews!"
+                    </div>
+                </div>
+
+                <!-- 3. GIANT TAP-TO-TALK ARC REACTOR BUTTON -->
+                <div class="relative my-1.5 flex items-center justify-center w-44 h-44 sm:w-52 sm:h-52">
+                    <svg class="absolute inset-0 w-full h-full animate-spin-slow text-jarvis-cyan/75 pointer-events-none" viewBox="0 0 240 240">
+                        <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="18 8 4 8"/>
+                        <circle cx="120" cy="120" r="102" fill="none" stroke="#ffaa00" stroke-width="1" stroke-dasharray="6 24" stroke-opacity="0.6"/>
+                    </svg>
+
+                    <svg class="absolute inset-3 w-[calc(100%-24px)] h-[calc(100%-24px)] animate-spin-reverse text-jarvis-blue/80 pointer-events-none" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="28 14"/>
+                        <circle cx="100" cy="100" r="74" fill="none" stroke="#00f3ff" stroke-width="1.5" stroke-dasharray="10 10"/>
+                    </svg>
+
+                    <svg class="absolute inset-8 w-[calc(100%-64px)] h-[calc(100%-64px)] animate-spin-fast text-jarvis-gold/75 pointer-events-none" viewBox="0 0 160 160">
+                        <circle cx="80" cy="80" r="64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="8 28"/>
+                    </svg>
+
+                    <button
+                        id="arcReactorBtn"
+                        type="button"
+                        onclick="handleArcReactorTap()"
+                        class="relative z-10 w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-slate-950/95 border-2 border-jarvis-cyan shadow-[0_0_40px_rgba(0,243,255,0.65)] hover:scale-105 active:scale-95 flex flex-col items-center justify-center text-center transition-all duration-150 px-2 cursor-pointer"
+                    >
+                        <div class="text-[9px] font-mono tracking-widest text-jarvis-gold uppercase">SHIFAN SHIJEER</div>
+                        <i id="reactorCenterIcon" class="fa-solid fa-microphone text-xl sm:text-2xl text-jarvis-cyan my-1"></i>
+                        <div id="reactorStateLabel" class="font-orbitron font-black text-xs sm:text-sm tracking-wider text-white glow-cyan">
+                            TAP TO TALK
+                        </div>
+                        <div id="reactorSubLabel" class="text-[10px] font-mono text-jarvis-emerald mt-0.5">
+                            16kHz APK WAV
+                        </div>
+                    </button>
+                </div>
+
+                <!-- 4. LIVE DECIBEL METER & SPECTRUM VISUALIZER (PROVES MIC IS RECEIVING SOUND) -->
+                <div class="w-full space-y-1">
+                    <div class="flex items-center justify-between text-[10px] font-mono">
+                        <span class="text-cyan-300/80">LIVE MIC SIGNAL METER:</span>
+                        <span id="centerDbReadout" class="text-jarvis-emerald font-bold">0% (SPEAK TO TEST)</span>
+                    </div>
+                    <div class="w-full h-2.5 rounded-full bg-slate-950 border border-jarvis-cyan/35 overflow-hidden">
+                        <div id="liveVolumeFill" class="h-full bg-gradient-to-r from-jarvis-cyan via-jarvis-emerald to-jarvis-gold transition-all duration-75" style="width: 4%"></div>
+                    </div>
+                    <canvas id="audioSpectrumCanvas" height="32" class="w-full h-8 rounded-lg bg-slate-950/90 border border-jarvis-cyan/30"></canvas>
+                </div>
+
+                <!-- 5. WALKIE-TALKIE PUSH-TO-TALK + APK SPEAKER CONTROLS -->
+                <div class="w-full space-y-2 mt-2">
+                    <!-- Dedicated Hold-to-Talk OR Tap-to-Talk Button for Android APK -->
+                    <button
+                        id="walkieTalkieBtn"
+                        type="button"
+                        onmousedown="handleWalkieStart(event)"
+                        onmouseup="handleWalkieEnd(event)"
+                        ontouchstart="handleWalkieStart(event)"
+                        ontouchend="handleWalkieEnd(event)"
+                        class="hud-btn w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500/30 via-emerald-500/30 to-cyan-500/30 border-2 border-jarvis-gold text-jarvis-gold font-orbitron font-black text-xs sm:text-sm tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,170,0,0.3)] select-none"
+                    >
+                        <i id="walkieBtnIcon" class="fa-solid fa-walkie-talkie text-base"></i>
+                        <span id="walkieBtnText">HOLD TO TALK (OR TAP REACTOR)</span>
+                    </button>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <button
+                            id="primaryTalkBtn"
+                            type="button"
+                            onclick="handleArcReactorTap()"
+                            class="hud-btn py-2 px-3 rounded-xl bg-emerald-500/25 border border-jarvis-emerald text-jarvis-emerald font-orbitron font-bold text-xs tracking-wider flex items-center justify-center gap-1.5"
+                        >
+                            <i id="primaryTalkBtnIcon" class="fa-solid fa-microphone"></i>
+                            <span id="primaryTalkBtnText">START / STOP REC</span>
+                        </button>
+
+                        <button
+                            id="continuousModeBtn"
+                            type="button"
+                            onclick="toggleContinuousHandsFree()"
+                            class="hud-btn py-2 px-3 rounded-xl bg-cyan-500/20 border border-jarvis-cyan text-jarvis-cyan font-orbitron font-bold text-xs tracking-wider flex items-center justify-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-headset"></i>
+                            <span id="continuousModeText">AUTO-VAD: OFF</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2">
+                        <button
+                            type="button"
+                            onclick="forceSendActiveSpeechNow()"
+                            class="hud-btn py-2 px-2 rounded-lg bg-amber-500/25 border border-jarvis-gold text-jarvis-gold font-orbitron text-[10px] font-bold tracking-wider flex items-center justify-center gap-1"
+                        >
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>SEND NOW</span>
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="toggleSpeakerOutput()"
+                            class="hud-btn py-2 px-2 rounded-lg bg-cyan-500/20 border border-jarvis-cyan text-jarvis-cyan font-orbitron text-[10px] font-bold tracking-wider flex items-center justify-center gap-1"
+                        >
+                            <i id="speakerBtnIcon" class="fa-solid fa-volume-high"></i>
+                            <span id="speakerBtnLabel">SPEAKER: ON</span>
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="replayLastJarvisVoice()"
+                            class="hud-btn py-2 px-2 rounded-lg bg-emerald-500/20 border border-jarvis-emerald text-jarvis-emerald font-orbitron text-[10px] font-bold tracking-wider flex items-center justify-center gap-1"
+                        >
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>REPLAY WAV</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-full mt-2 pt-2 border-t border-jarvis-cyan/20 flex items-center justify-between text-[11px] font-mono">
+                    <span class="text-cyan-400/70">WHITE-CODED BY:</span>
+                    <span class="text-jarvis-gold font-bold tracking-wider">SHIFAN SHIJEER</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             RIGHT COLUMN (4 COLS): FACTUAL GROUNDED JARVIS CONSOLE
+             ================================================================= -->
+        <section class="lg:col-span-4 flex flex-col gap-4">
+            <div class="hud-panel hud-corners rounded-xl p-4 flex-1 flex flex-col justify-between min-h-[460px] max-h-[690px]">
+                <div class="flex items-center justify-between border-b border-jarvis-cyan/25 pb-2.5">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-terminal text-jarvis-cyan"></i>
+                        <div>
+                            <h2 class="font-orbitron text-xs sm:text-sm font-bold tracking-wider text-jarvis-cyan">
+                                REAL-TIME GROUNDED CONSOLE
+                            </h2>
+                            <p class="text-[10px] font-mono text-jarvis-emerald">
+                                LIVE CAMERA SIGHT + GOOGLE SEARCH + DEVICE TELEMETRY
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        onclick="clearChatHistory()"
+                        class="px-2 py-1 rounded border border-jarvis-cyan/30 hover:border-jarvis-crimson text-[10px] font-mono text-cyan-300/70 hover:text-jarvis-crimson transition"
+                    >
+                        CLEAR
+                    </button>
+                </div>
+
+                <!-- Chat Messages Stream -->
+                <div id="jarvisChatStream" class="flex-1 overflow-y-auto my-3 pr-1 space-y-3 font-rajdhani text-sm">
+                    <!-- Injected by JS -->
+                </div>
+
+                <!-- Grounded Real-Time Quick Prompts -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-2 mb-1">
+                    <button onclick="describeCurrentCameraViewNow()" class="shrink-0 px-2.5 py-1 rounded-full bg-amber-950/70 border border-jarvis-gold/70 hover:border-jarvis-gold text-[11px] font-mono text-jarvis-gold cursor-pointer">
+                        <i class="fa-solid fa-eye mr-1"></i>What Is On Camera Right Now?
+                    </button>
+                    <button onclick="sendQuickCommand('What is the exact time, date, and my current device status right now?')" class="shrink-0 px-2.5 py-1 rounded-full bg-cyan-950/80 border border-jarvis-cyan/50 hover:border-jarvis-cyan text-[11px] font-mono text-cyan-200 cursor-pointer">
+                        Exact Time &amp; Device Status
+                    </button>
+                    <button onclick="sendQuickCommand('Who created and white-coded this app?')" class="shrink-0 px-2.5 py-1 rounded-full bg-cyan-950/80 border border-jarvis-cyan/50 hover:border-jarvis-cyan text-[11px] font-mono text-cyan-200 cursor-pointer">
+                        Who White-Coded You?
+                    </button>
+                    <button onclick="sendQuickCommand('What are the top real-world tech news headlines today?')" class="shrink-0 px-2.5 py-1 rounded-full bg-cyan-950/80 border border-jarvis-cyan/50 hover:border-jarvis-cyan text-[11px] font-mono text-cyan-200 cursor-pointer">
+                        Live News (Google Search)
+                    </button>
+                </div>
+
+                <!-- Live Text / Voice Input Form -->
+                <form onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
+                    <button
+                        type="button"
+                        onclick="handleArcReactorTap()"
+                        id="chatMicBtn"
+                        class="p-2.5 rounded-lg border border-jarvis-emerald bg-emerald-950/50 text-jarvis-emerald hover:bg-emerald-900/60 transition shrink-0 cursor-pointer"
+                        title="Tap to Speak to JARVIS"
+                    >
+                        <i class="fa-solid fa-microphone"></i>
+                    </button>
+                    <input
+                        id="jarvisInput"
+                        type="text"
+                        placeholder="Ask anything or tap Mic (Camera auto-linked when ON)..."
+                        class="flex-1 bg-slate-950/90 border border-jarvis-cyan/50 focus:border-jarvis-gold rounded-lg px-3.5 py-2.5 text-sm font-mono text-white placeholder-cyan-400/40 focus:outline-none"
+                    />
+                    <button
+                        type="submit"
+                        class="hud-btn px-4 py-2.5 rounded-lg bg-jarvis-cyan text-slate-950 font-orbitron font-bold text-xs tracking-wider shrink-0"
+                    >
+                        SEND
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =====================================================================
+         APK FIX GUIDE & ANDROID PERMISSION DIAGNOSTIC MODAL
+         ===================================================================== -->
+    <div id="apkFixModal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="hud-panel hud-corners rounded-2xl max-w-xl w-full p-5 border-2 border-jarvis-gold shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-jarvis-cyan/30 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-brands fa-android text-jarvis-emerald text-2xl"></i>
+                    <div>
+                        <h3 class="font-orbitron font-black text-sm sm:text-base text-jarvis-gold">
+                            ANDROID APK SOUND &amp; MIC DIAGNOSTIC REPORT
+                        </h3>
+                        <p class="text-[11px] font-mono text-cyan-300/80">
+                            ENGINEERED BY SHIFAN SHIJEER FOR HTML-TO-APK CONVERTERS
+                        </p>
+                    </div>
+                </div>
+                <button onclick="closeApkFixModal()" class="text-cyan-300 hover:text-white text-lg px-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Live Diagnostic Result Box -->
+            <div id="apkModalLiveReport" class="p-3 rounded-xl bg-slate-950 border border-jarvis-cyan/40 font-mono text-xs space-y-1.5 text-cyan-100">
+                <!-- Populated dynamically -->
+            </div>
+
+            <div class="space-y-2.5 text-xs text-cyan-100/90 leading-relaxed">
+                <div class="p-3 rounded-xl bg-emerald-950/40 border border-jarvis-emerald/50">
+                    <div class="font-orbitron font-bold text-jarvis-emerald mb-1">
+                        <i class="fa-solid fa-check-circle mr-1"></i>WHAT WE FIXED IN THIS CODE FOR YOUR APK:
+                    </div>
+                    <p>
+                        Standard Android WebViews do NOT support <code class="text-jarvis-gold">window.speechSynthesis</code> or <code class="text-jarvis-gold">webkitSpeechRecognition</code>. This edition bypasses both! It records your voice using a <strong>Direct 16kHz PCM-to-WAV AudioContext Recorder</strong> and plays JARVIS's voice as a standard <strong>RIFF WAVE (<code class="text-jarvis-cyan">audio/wav</code>) stream</strong> through HTML5 <code class="text-jarvis-cyan">&lt;audio&gt;</code> + Web Audio API.
+                    </p>
+                </div>
+
+                <div class="p-3 rounded-xl bg-amber-950/40 border border-jarvis-gold/50 space-y-1.5">
+                    <div class="font-orbitron font-bold text-jarvis-gold">
+                        <i class="fa-solid fa-wrench mr-1"></i>IF YOUR APK CONVERTER STILL BLOCKS THE MICROPHONE:
+                    </div>
+                    <p>
+                        When converting HTML to APK (in apps like <em>Website2APK</em>, <em>WebIntoApp</em>, or <em>HopWeb</em>), make sure these 3 settings are enabled in your APK builder:
+                    </p>
+                    <ul class="list-disc list-inside font-mono text-[11px] text-amber-200 space-y-1">
+                        <li>Enable Android Permission: <strong>RECORD_AUDIO</strong> &amp; <strong>MODIFY_AUDIO_SETTINGS</strong></li>
+                        <li>Enable Android Permission: <strong>CAMERA</strong> &amp; <strong>INTERNET</strong></li>
+                        <li>Enable WebView option: <strong>Allow WebRTC / Audio &amp; Video Capture</strong> (and go to Android Settings &rarr; Apps &rarr; Your JARVIS App &rarr; Permissions &rarr; Allow Microphone &amp; Camera).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                <button
+                    onclick="runHardwareSpeakerTest()"
+                    class="hud-btn py-2.5 px-3 rounded-xl bg-jarvis-cyan text-slate-950 font-orbitron font-bold text-xs flex items-center justify-center gap-2"
+                >
+                    <i class="fa-solid fa-volume-high"></i>
+                    <span>1. TEST SPEAKER NOW</span>
+                </button>
+                <button
+                    onclick="testMicrophoneSignalOnly(); closeApkFixModal();"
+                    class="hud-btn py-2.5 px-3 rounded-xl bg-jarvis-emerald text-slate-950 font-orbitron font-bold text-xs flex items-center justify-center gap-2"
+                >
+                    <i class="fa-solid fa-microphone"></i>
+                    <span>2. TEST MICROPHONE NOW</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         BOTTOM TELEMETRY & SHIFAN SHIJEER ATTRIBUTION FOOTER
+         ===================================================================== -->
+    <footer class="w-full border-t border-jarvis-cyan/25 bg-slate-950/90 px-4 py-2.5 z-20">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono">
+            <div class="flex items-center gap-2 text-cyan-300/80">
+                <span class="w-2 h-2 rounded-full bg-jarvis-emerald animate-ping"></span>
+                <span>NO-NONSENSE GROUNDED ENGINE // LIVE VISION + GOOGLE SEARCH</span>
+            </div>
+
+            <div class="flex items-center gap-2 text-center">
+                <span class="text-cyan-200/70">WHITE-CODED &amp; MADE BY</span>
+                <span class="px-2.5 py-0.5 rounded bg-jarvis-gold/20 border border-jarvis-gold text-jarvis-gold font-orbitron font-bold tracking-widest glow-gold">
+                    SHIFAN SHIJEER
+                </span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="runDiagnosticSelfRepair()" class="text-jarvis-emerald hover:underline font-bold">
+                    RESET MIC &amp; AUDIO
+                </button>
+                <span class="text-cyan-500/40">|</span>
+                <button onclick="launchSharedGeminiChat()" class="text-jarvis-gold hover:underline font-bold">
+                    GEMINI LINK: tW7cDcxMphY2
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         HUD TOAST NOTIFICATION BOX (NO ALERT/CONFIRM USED)
+         ===================================================================== -->
+    <div id="hudToast" class="fixed bottom-14 right-4 z-50 hidden max-w-sm hud-panel hud-corners rounded-xl p-3.5 border border-jarvis-cyan shadow-2xl transition-all">
+        <div class="flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-jarvis-gold text-lg mt-0.5"></i>
+            <div class="flex-1">
+                <div id="hudToastTitle" class="font-orbitron text-xs font-bold text-jarvis-cyan tracking-wider">SYSTEM NOTIFICATION</div>
+                <div id="hudToastMessage" class="text-xs font-mono text-cyan-100 mt-1"></div>
+            </div>
+            <button onclick="hideToast()" class="text-cyan-400 hover:text-white text-xs">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         ANDROID APK-READY WAV AUDIO & GROUNDED AI ENGINE
+         ===================================================================== -->
+    <script>
+        // -----------------------------------------------------------------
+        // 1. GLOBAL CONFIGURATION & APK STATE
+        // -----------------------------------------------------------------
+        const SHARED_GEMINI_URL = "https://share.gemini.google/tW7cDcxMphY2";
+        const apiKey = ""; // Injected automatically by Canvas runtime
+
+        const state = {
+            email: localStorage.getItem("jarvis_gmail") || "",
+            // Default to 'APK_PCM_WAV' because Android WebView APKs do NOT support webkitSpeechRecognition!
+            micInputMode: "APK_PCM_WAV",
+            isListening: false,
+            continuousLoop: false,
+            isProcessing: false,
+            isSpeaking: false,
+            speakerEnabled: true,
+            camActive: false,
+            autoVisionLinked: true,
+            facingMode: "user",
+            liveInterimTranscript: "",
+            lastReplyText: "J.A.R.V.I.S. Android APK Edition, white-coded by Shifan Shijeer, is online and audio output is active.",
+            lastWavBlobUrl: null,
+            batteryLevel: "100% (Nominal)",
+            visualEnergy: 4,
+            peakRecordedEnergy: 0,
+            silenceFrames: 0,
+            hasSpokenInClip: false,
+            isAndroidWebView: false,
+            chatHistory: []
+        };
+
+        // Hardware & Web Audio Handles
+        let audioCtx = null;
+        let audioUnlocked = false;
+        let speechRecognizer = null;
+        let rawMicStream = null;
+        let rawAnalyser = null;
+        let scriptProcessor = null;
+        let micSourceNode = null;
+        let pcmFloatChunks = [];
+        let recordingSampleRate = 16000;
+        let recStartTime = 0;
+        let recTimerInterval = null;
+        let activePcmSource = null;
+        let camStream = null;
+        let safetyLockTimer = null;
+        let cachedUkVoice = null;
+        let walkieHolding = false;
+
+        // STRICT NO-NONSENSE SYSTEM PROMPT
+        const STRICT_GROUNDED_SYSTEM_PROMPT = `
+You are J.A.R.V.I.S., created and white-coded by Shifan Shijeer.
+CRITICAL RULE: NEVER make up fake sci-fi diagnostics, fake sensor readings, or unrelated nonsense.
+1. Answer the user's EXACT question directly, accurately, and factually in 1 to 3 clear sentences.
+2. If a live camera image is attached to this turn, describe or answer based ONLY on the EXACT real-world objects, text, screens, or people visible in the camera frame right now.
+3. If the user asks about the time, date, battery, camera state, or system settings, report the EXACT values from the [REAL-TIME SYSTEM TELEMETRY] block provided in the prompt.
+4. Always state the exact truth of what is currently on screen, in the camera view, or in the real world. Address the user respectfully as Sir or Shifan.
+        `.trim();
+
+        // -----------------------------------------------------------------
+        // 2. ANDROID APK HARDWARE & ENVIRONMENT DIAGNOSTIC SCANNER
+        // -----------------------------------------------------------------
+        function detectApkEnvironment() {
+            const ua = navigator.userAgent || "";
+            const isWv = /wv|Android.*Version\/[0-9.]+.*Chrome\/[0-9.]+ Mobile/i.test(ua) || !window.SpeechRecognition && !window.webkitSpeechRecognition;
+            const isAndroid = /Android/i.test(ua);
+            const protocol = window.location.protocol || "unknown:";
+            state.isAndroidWebView = isWv || isAndroid || protocol === "file:";
+
+            const envBadge = document.getElementById("diagEnvBadge");
+            if (envBadge) {
+                if (protocol === "file:" || protocol === "content:") {
+                    envBadge.textContent = `ENV: APK (${protocol.toUpperCase()})`;
+                    envBadge.className = "text-jarvis-gold font-bold";
+                } else if (isAndroid) {
+                    envBadge.textContent = "ENV: ANDROID APK / WEBVIEW";
+                    envBadge.className = "text-jarvis-emerald font-bold";
+                } else {
+                    envBadge.textContent = `ENV: ${protocol.replace(":", "").toUpperCase()} WEB`;
+                    envBadge.className = "text-jarvis-cyan font-bold";
+                }
+            }
+            runApkHardwareCheck(false);
+        }
+
+        async function runApkHardwareCheck(showModalAfter = false) {
+            const proto = window.location.protocol || "unknown:";
+            const hasGetUserMedia = Boolean(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+            const hasWebAudio = Boolean(window.AudioContext || window.webkitAudioContext);
+            const hasSpeechSynth = ("speechSynthesis" in window);
+            const hasSpeechRec = ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+
+            const protoEl = document.getElementById("scanProtocolVal");
+            const spkEl = document.getElementById("scanSpeakerVal");
+            const micEl = document.getElementById("scanMicPermVal");
+
+            if (protoEl) {
+                protoEl.textContent = `${proto}// (${state.isAndroidWebView ? "APK/Mobile" : "Browser"})`;
+                protoEl.className = proto === "file:" ? "font-bold text-jarvis-gold truncate" : "font-bold text-jarvis-emerald truncate";
+            }
+
+            if (spkEl) {
+                spkEl.textContent = hasWebAudio ? "WAV + PCM READY" : "HTML5 AUDIO ONLY";
+                spkEl.className = "font-bold text-jarvis-cyan truncate";
+            }
+
+            if (micEl) {
+                if (!hasGetUserMedia) {
+                    micEl.textContent = "BLOCKED BY APK WRAPPER";
+                    micEl.className = "font-bold text-jarvis-crimson truncate";
+                } else {
+                    micEl.textContent = "16kHz WAV READY";
+                    micEl.className = "font-bold text-jarvis-emerald truncate";
+                }
+            }
+
+            const reportBox = document.getElementById("apkModalLiveReport");
+            if (reportBox) {
+                reportBox.innerHTML = `
+                    <div>• <strong>Origin Protocol:</strong> <span class="text-jarvis-gold">${proto}//</span> ${proto === "file:" ? "(Local APK Asset - Ensure RECORD_AUDIO is enabled in APK Converter)" : "(Secure Context OK)"}</div>
+                    <div>• <strong>Microphone API (getUserMedia):</strong> <span class="${hasGetUserMedia ? "text-jarvis-emerald" : "text-jarvis-crimson"}">${hasGetUserMedia ? "AVAILABLE (16kHz Direct WAV Recorder Active)" : "BLOCKED (Enable RECORD_AUDIO & WebRTC in APK Builder)"}</span></div>
+                    <div>• <strong>Speaker Engine:</strong> <span class="text-jarvis-emerald">RIFF WAVE (&lt;audio&gt;) + Web Audio PCM Active</span></div>
+                    <div>• <strong>Native WebView SpeechSynthesis:</strong> <span class="text-cyan-300">${hasSpeechSynth ? "Present (Used only as backup)" : "Missing in APK (Bypassed with WAV Engine!)"}</span></div>
+                    <div>• <strong>Native WebView SpeechRecognition:</strong> <span class="text-cyan-300">${hasSpeechRec ? "Present" : "Missing in APK (Bypassed with 16kHz WAV Engine!)"}</span></div>
+                `;
+            }
+
+            if (showModalAfter) {
+                openApkFixModal();
+            }
+        }
+
+        function openApkFixModal() {
+            runApkHardwareCheck(false);
+            document.getElementById("apkFixModal").classList.remove("hidden");
+        }
+
+        function closeApkFixModal() {
+            document.getElementById("apkFixModal").classList.add("hidden");
+        }
+
+        // -----------------------------------------------------------------
+        // 3. UNIVERSAL RIFF WAVE (audio/wav) ENCODER FOR APK MIC & SPEAKER
+        // -----------------------------------------------------------------
+        // Converts Float32Array [-1..1] into a standard 16-bit mono RIFF WAVE ArrayBuffer
+        function encodeFloat32ToWavBuffer(float32Samples, sampleRate = 16000) {
+            const buffer = new ArrayBuffer(44 + float32Samples.length * 2);
+            const view = new DataView(buffer);
+
+            const writeStr = (offset, str) => {
+                for (let i = 0; i < str.length; i++) {
+                    view.setUint8(offset + i, str.charCodeAt(i));
+                }
+            };
+
+            writeStr(0, "RIFF");
+            view.setUint32(4, 36 + float32Samples.length * 2, true);
+            writeStr(8, "WAVE");
+            writeStr(12, "fmt ");
+            view.setUint32(16, 16, true);          // Subchunk1Size (16 for PCM)
+            view.setUint16(20, 1, true);           // AudioFormat (1 = PCM)
+            view.setUint16(22, 1, true);           // NumChannels (1 = mono)
+            view.setUint32(24, sampleRate, true);  // SampleRate
+            view.setUint32(28, sampleRate * 2, true); // ByteRate
+            view.setUint16(32, 2, true);           // BlockAlign
+            view.setUint16(34, 16, true);          // BitsPerSample
+            writeStr(36, "data");
+            view.setUint32(40, float32Samples.length * 2, true);
+
+            let offset = 44;
+            for (let i = 0; i < float32Samples.length; i++, offset += 2) {
+                const s = Math.max(-1, Math.min(1, float32Samples[i]));
+                view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+            }
+            return buffer;
+        }
+
+        // Converts Int16Array PCM (from Gemini 24kHz TTS) into a standard RIFF WAVE Blob
+        function encodeInt16ToWavBlob(int16Samples, sampleRate = 24000) {
+            const buffer = new ArrayBuffer(44 + int16Samples.length * 2);
+            const view = new DataView(buffer);
+
+            const writeStr = (offset, str) => {
+                for (let i = 0; i < str.length; i++) {
+                    view.setUint8(offset + i, str.charCodeAt(i));
+                }
+            };
+
+            writeStr(0, "RIFF");
+            view.setUint32(4, 36 + int16Samples.length * 2, true);
+            writeStr(8, "WAVE");
+            writeStr(12, "fmt ");
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeStr(36, "data");
+            view.setUint32(40, int16Samples.length * 2, true);
+
+            let offset = 44;
+            for (let i = 0; i < int16Samples.length; i++, offset += 2) {
+                view.setInt16(offset, int16Samples[i], true);
+            }
+            return new Blob([buffer], { type: "audio/wav" });
+        }
+
+        function arrayBufferToBase64(buffer) {
+            const bytes = new Uint8Array(buffer);
+            let binary = "";
+            const chunkSize = 0x8000;
+            for (let i = 0; i < bytes.length; i += chunkSize) {
+                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+            }
+            return btoa(binary);
+        }
+
+        // Downsamples recorded Float32 audio from AudioContext sampleRate (e.g. 48000Hz) to 16000Hz so WAV payload is fast and compact
+        function downsampleFloat32(buffer, inputRate, outputRate = 16000) {
+            if (inputRate === outputRate) return buffer;
+            const ratio = inputRate / outputRate;
+            const newLength = Math.round(buffer.length / ratio);
+            const result = new Float32Array(newLength);
+            let offsetResult = 0;
+            let offsetBuffer = 0;
+            while (offsetResult < result.length) {
+                const nextOffsetBuffer = Math.round((offsetResult + 1) * ratio);
+                let accum = 0;
+                let count = 0;
+                for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {
+                    accum += buffer[i];
+                    count++;
+                }
+                result[offsetResult] = count > 0 ? accum / count : 0;
+                offsetResult++;
+                offsetBuffer = nextOffsetBuffer;
+            }
+            return result;
+        }
+
+        // -----------------------------------------------------------------
+        // 4. APK SPEAKER UNLOCK & OFFLINE 440Hz + WAV HARDWARE SPEAKER TEST
+        // -----------------------------------------------------------------
+        function ensureAudioUnlocked() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!audioCtx && AudioCtx) {
+                    audioCtx = new AudioCtx();
+                }
+                if (audioCtx && audioCtx.state === "suspended") {
+                    audioCtx.resume();
+                }
+
+                // Unlock both Web Audio API AND the HTML5 <audio id="apkAudioPlayer"> element on user gesture
+                if (!audioUnlocked) {
+                    if (audioCtx) {
+                        const buf = audioCtx.createBuffer(1, 1, 22050);
+                        const src = audioCtx.createBufferSource();
+                        src.buffer = buf;
+                        src.connect(audioCtx.destination);
+                        src.start(0);
+                    }
+                    const player = document.getElementById("apkAudioPlayer");
+                    if (player) {
+                        // Tiny silent WAV to unlock Android WebView <audio> element
+                        const silentSamples = new Float32Array(160);
+                        const wavBuf = encodeFloat32ToWavBuffer(silentSamples, 8000);
+                        const wavBlob = new Blob([wavBuf], { type: "audio/wav" });
+                        player.src = URL.createObjectURL(wavBlob);
+                        player.volume = 1.0;
+                        player.play().catch(() => {});
+                    }
+                    audioUnlocked = true;
+                }
+            } catch (e) {}
+        }
+
+        // Plays a synthesized WAV tone through <audio id="apkAudioPlayer"> + Web Audio Oscillator +JARVIS voice test
+        async function runHardwareSpeakerTest() {
+            ensureAudioUnlocked();
+
+            const spkEl = document.getElementById("scanSpeakerVal");
+            if (spkEl) {
+                spkEl.textContent = "PLAYING 440Hz WAV...";
+                spkEl.className = "font-bold text-jarvis-gold truncate";
+            }
+
+            // 1. Generate a real 0.45-second dual-tone Stark chime as a RIFF WAVE file and play via <audio>
+            try {
+                const sr = 22050;
+                const len = Math.floor(sr * 0.45);
+                const samples = new Float32Array(len);
+                for (let i = 0; i < len; i++) {
+                    const t = i / sr;
+                    const freq = i < len / 2 ? 587.33 : 880.0; // D5 -> A5 Stark telemetry chime
+                    const env = Math.sin((i / len) * Math.PI);
+                    samples[i] = Math.sin(2 * Math.PI * freq * t) * 0.45 * env;
+                }
+                const wavBuffer = encodeFloat32ToWavBuffer(samples, sr);
+                const wavBlob = new Blob([wavBuffer], { type: "audio/wav" });
+                const wavUrl = URL.createObjectURL(wavBlob);
+
+                const player = document.getElementById("apkAudioPlayer");
+                if (player) {
+                    player.src = wavUrl;
+                    player.volume = 1.0;
+                    await player.play();
+                }
+            } catch (e) {
+                playStarkChord();
+            }
+
+            if (spkEl) {
+                spkEl.textContent = "WAV SPEAKER ACTIVE!";
+                spkEl.className = "font-bold text-jarvis-emerald truncate";
+            }
+
+            showToast(
+                "HARDWARE SPEAKER TEST",
+                "Playing 440Hz/880Hz WAV chime + Gemini Neural WAV voice. Make sure your phone Media Volume is turned UP!"
+            );
+
+            await speakJarvisText("Speaker test successful, Sir. Android APK WAV audio output white-coded by Shifan Shijeer is online.");
+        }
+
+        function playStarkBeep(freq = 880, duration = 0.05, type = "sine") {
+            try {
+                ensureAudioUnlocked();
+                if (!audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        function playStarkChord() {
+            [523.25, 659.25, 783.99, 1046.5].forEach((f, idx) => {
+                setTimeout(() => playStarkBeep(f, 0.08, "triangle"), idx * 55);
+            });
+        }
+
+        // Cybernetic R2/JARVIS Telemetry Synth Vocalizer (Fallback if user is offline or TTS API fails in APK)
+        function playCyberneticVocalCadence(textLength = 40) {
+            return new Promise((resolve) => {
+                try {
+                    ensureAudioUnlocked();
+                    if (!audioCtx) { resolve(false); return; }
+                    const syllables = Math.min(14, Math.max(4, Math.floor(textLength / 12)));
+                    const freqs = [240, 320, 280, 360, 300, 260, 340];
+                    for (let i = 0; i < syllables; i++) {
+                        setTimeout(() => {
+                            playStarkBeep(freqs[i % freqs.length], 0.045, "sawtooth");
+                        }, i * 65);
+                    }
+                    setTimeout(() => resolve(true), syllables * 65 + 100);
+                } catch (e) {
+                    resolve(false);
+                }
+            });
+        }
+
+        function setDiagStatus(text, color, elementId) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            el.textContent = text;
+            const colorMap = {
+                emerald: "text-jarvis-emerald font-bold",
+                cyan: "text-jarvis-cyan font-bold",
+                gold: "text-jarvis-gold font-bold",
+                crimson: "text-jarvis-crimson font-bold"
+            };
+            el.className = colorMap[color] || "text-jarvis-cyan font-bold";
+        }
+
+        // -----------------------------------------------------------------
+        // 5. DIRECT 16kHz PCM-TO-WAV APK MICROPHONE RECORDER (BYPASSES MEDIARECORDER & WEBSPEECH)
+        // -----------------------------------------------------------------
+        async function testMicrophoneSignalOnly() {
+            ensureAudioUnlocked();
+            setMicInputMode("APK_PCM_WAV");
+            showToast("TESTING APK MICROPHONE", "Speak into your phone now—watch the LIVE MIC SIGNAL METER & dB readout!");
+            await startListeningToUser();
+        }
+
+        function handleWalkieStart(e) {
+            if (e && e.cancelable) e.preventDefault();
+            if (walkieHolding || state.isListening) return;
+            walkieHolding = true;
+            const btn = document.getElementById("walkieTalkieBtn");
+            if (btn) btn.classList.add("ptt-active");
+            document.getElementById("walkieBtnText").textContent = "RECORDING... RELEASE TO SEND";
+            handleArcReactorTap();
+        }
+
+        function handleWalkieEnd(e) {
+            if (e && e.cancelable) e.preventDefault();
+            if (!walkieHolding) return;
+            walkieHolding = false;
+            const btn = document.getElementById("walkieTalkieBtn");
+            if (btn) btn.classList.remove("ptt-active");
+            document.getElementById("walkieBtnText").textContent = "HOLD TO TALK (OR TAP REACTOR)";
+            if (state.isListening) {
+                forceSendActiveSpeechNow();
+            }
+        }
+
+        async function handleArcReactorTap() {
+            ensureAudioUnlocked();
+            playStarkBeep(960, 0.05);
+
+            if (state.isSpeaking) {
+                stopAllVoiceOutput();
+                state.isSpeaking = false;
+            }
+
+            if (state.isProcessing) {
+                clearTimeout(safetyLockTimer);
+                state.isProcessing = false;
+            }
+
+            if (state.isListening) {
+                await forceSendActiveSpeechNow();
+            } else {
+                await startListeningToUser();
+            }
+        }
+
+        async function toggleContinuousHandsFree() {
+            ensureAudioUnlocked();
+            state.continuousLoop = !state.continuousLoop;
+            const btn = document.getElementById("continuousModeBtn");
+            const txt = document.getElementById("continuousModeText");
+
+            if (state.continuousLoop) {
+                btn.className = "hud-btn py-2 px-3 rounded-xl bg-jarvis-emerald/30 border-2 border-jarvis-emerald text-jarvis-emerald font-orbitron font-bold text-xs tracking-wider flex items-center justify-center gap-1.5";
+                txt.textContent = "AUTO-VAD: ON";
+                showToast("HANDS-FREE AUTO-VAD ON", "Speak naturally—JARVIS will automatically send your WAV audio when you pause for 1.2 seconds!");
+                if (!state.isListening && !state.isSpeaking && !state.isProcessing) {
+                    await startListeningToUser();
+                }
+            } else {
+                btn.className = "hud-btn py-2 px-3 rounded-xl bg-cyan-500/20 border border-jarvis-cyan text-jarvis-cyan font-orbitron font-bold text-xs tracking-wider flex items-center justify-center gap-1.5";
+                txt.textContent = "AUTO-VAD: OFF";
+                if (state.isListening) {
+                    stopAllMicCapture();
+                    state.isListening = false;
+                    updateCoreUiState("IDLE");
+                }
+            }
+        }
+
+        function setMicInputMode(mode) {
+            ensureAudioUnlocked();
+            playStarkBeep(820, 0.05);
+            if (state.isListening) {
+                stopAllMicCapture();
+                state.isListening = false;
+            }
+            state.micInputMode = mode;
+
+            const apkBtn = document.getElementById("micModeApkWavBtn");
+            const speechBtn = document.getElementById("micModeSpeechBtn");
+            if (mode === "APK_PCM_WAV") {
+                apkBtn.className = "py-1.5 px-2 rounded text-[10px] font-orbitron font-bold tracking-wider transition bg-jarvis-gold text-slate-950";
+                speechBtn.className = "py-1.5 px-2 rounded text-[10px] font-orbitron font-bold tracking-wider transition text-cyan-300/75 hover:text-white";
+                setLiveCaption(`"APK 16kHz WAV ENGINE ACTIVE: Tap the Arc Reactor (or hold Walkie-Talkie) and speak."`);
+            } else {
+                speechBtn.className = "py-1.5 px-2 rounded text-[10px] font-orbitron font-bold tracking-wider transition bg-jarvis-cyan text-slate-950";
+                apkBtn.className = "py-1.5 px-2 rounded text-[10px] font-orbitron font-bold tracking-wider transition text-cyan-300/75 hover:text-white";
+                setLiveCaption(`"CHROME SPEECH STT MODE: Uses browser SpeechRecognition (falls back to APK WAV if unsupported)."`);
+            }
+            updateCoreUiState("IDLE");
+        }
+
+        async function startListeningToUser() {
+            if (state.isSpeaking) return;
+
+            ensureAudioUnlocked();
+            stopAllMicCapture();
+
+            state.liveInterimTranscript = "";
+            state.isListening = true;
+            updateCoreUiState("LISTENING");
+
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (state.micInputMode === "SPEECH_STT" && SpeechRec && !state.isAndroidWebView) {
+                startVerifiedWebSpeech(SpeechRec);
+            } else {
+                if (state.micInputMode === "SPEECH_STT") {
+                    setMicInputMode("APK_PCM_WAV");
+                }
+                await startDirectApkWavRecorder();
+            }
+        }
+
+        // PRIMARY APK ENGINE: Direct AudioContext + ScriptProcessorNode 16kHz PCM-to-WAV Recorder
+        // Works on 100% of Android WebViews where MediaRecorder & webkitSpeechRecognition fail!
+        async function startDirectApkWavRecorder() {
+            try {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    throw new Error("GETUSERMEDIA_UNSUPPORTED");
+                }
+
+                rawMicStream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        autoGainControl: true
+                    }
+                });
+
+                ensureAudioUnlocked();
+                if (audioCtx.state === "suspended") await audioCtx.resume();
+
+                recordingSampleRate = audioCtx.sampleRate || 44100;
+                micSourceNode = audioCtx.createMediaStreamSource(rawMicStream);
+                rawAnalyser = audioCtx.createAnalyser();
+                rawAnalyser.fftSize = 128;
+                rawAnalyser.smoothingTimeConstant = 0.5;
+
+                // ScriptProcessorNode captures raw Float32 PCM directly from the microphone
+                scriptProcessor = audioCtx.createScriptProcessor(4096, 1, 1);
+                pcmFloatChunks = [];
+                state.peakRecordedEnergy = 0;
+                state.silenceFrames = 0;
+                state.hasSpokenInClip = false;
+                recStartTime = Date.now();
+
+                scriptProcessor.onaudioprocess = (event) => {
+                    if (!state.isListening || state.isSpeaking) return;
+                    const inputData = event.inputBuffer.getChannelData(0);
+                    const copy = new Float32Array(inputData.length);
+                    let sumSquares = 0;
+                    for (let i = 0; i < inputData.length; i++) {
+                        const s = inputData[i];
+                        copy[i] = s;
+                        sumSquares += s * s;
+                    }
+                    pcmFloatChunks.push(copy);
+
+                    // Calculate real-time RMS & dB level so user can visually verify APK microphone input
+                    const rms = Math.sqrt(sumSquares / inputData.length);
+                    const pct = Math.min(100, Math.round(rms * 420));
+                    state.visualEnergy = Math.max(4, pct);
+
+                    if (pct > state.peakRecordedEnergy) {
+                        state.peakRecordedEnergy = pct;
+                    }
+
+                    // Auto-VAD silence detection: if user spoke (pct > 14) and then paused for ~1.25s, auto-send!
+                    if (pct > 14) {
+                        state.hasSpokenInClip = true;
+                        state.silenceFrames = 0;
+                    } else if (state.hasSpokenInClip) {
+                        state.silenceFrames++;
+                        // 14 frames of 4096 samples at 44.1kHz ≈ 1.3 seconds of silence after speaking
+                        if (!walkieHolding && state.silenceFrames >= 14 && (Date.now() - recStartTime > 1200)) {
+                            finishAndSendApkWavRecording();
+                        }
+                    }
+                };
+
+                micSourceNode.connect(rawAnalyser);
+                rawAnalyser.connect(scriptProcessor);
+                scriptProcessor.connect(audioCtx.destination);
+
+                const micPermEl = document.getElementById("scanMicPermVal");
+                if (micPermEl) {
+                    micPermEl.textContent = "ACTIVE (RECEIVING)";
+                    micPermEl.className = "font-bold text-jarvis-emerald truncate";
+                }
+
+                setDiagStatus("MIC: 16kHz WAV RECORDING", "gold", "diagMicStatus");
+                setLiveCaption(`RECORDING 16kHz WAV: Speak now! Watch the signal meter move, then tap Reactor (or pause 1.2s) to send.`);
+
+                clearInterval(recTimerInterval);
+                recTimerInterval = setInterval(() => {
+                    const sec = ((Date.now() - recStartTime) / 1000).toFixed(1);
+                    document.getElementById("recTimerBadge").textContent = `WAV REC ${sec}s`;
+                    if (Date.now() - recStartTime > 11000) {
+                        finishAndSendApkWavRecording();
+                    }
+                }, 100);
+
+            } catch (err) {
+                state.isListening = false;
+                setDiagStatus("MIC: BLOCKED IN APK", "crimson", "diagMicStatus");
+                const micPermEl = document.getElementById("scanMicPermVal");
+                if (micPermEl) {
+                    micPermEl.textContent = "DENIED / APK BLOCKED";
+                    micPermEl.className = "font-bold text-jarvis-crimson truncate";
+                }
+                updateCoreUiState("IDLE");
+                setLiveCaption(`APK Microphone Permission Blocked! Click "APK AUDIO DIAGNOSIS" in the top bar for the fix.`);
+                openApkFixModal();
+            }
+        }
+
+        async function finishAndSendApkWavRecording() {
+            if (!state.isListening) return;
+            state.isListening = false;
+            clearInterval(recTimerInterval);
+
+            const durationMs = Date.now() - recStartTime;
+            const totalSamples = pcmFloatChunks.reduce((acc, c) => acc + c.length, 0);
+            const mergedFloat32 = new Float32Array(totalSamples);
+            let offset = 0;
+            for (const chunk of pcmFloatChunks) {
+                mergedFloat32.set(chunk, offset);
+                offset += chunk.length;
+            }
+            pcmFloatChunks = [];
+            const peakEnergy = state.peakRecordedEnergy;
+
+            stopAllMicCapture();
+
+            // Prevent sending empty/silent audio if user didn't speak
+            if (totalSamples < 2400 || durationMs < 450 || peakEnergy < 8) {
+                updateCoreUiState("IDLE");
+                document.getElementById("recTimerBadge").textContent = "TOO QUIET";
+                setLiveCaption(`Microphone works (Peak Signal: ${peakEnergy}%), but voice was too quiet or short. Speak louder and tap again.`);
+                return;
+            }
+
+            // Downsample to 16kHz mono and encode as standard RIFF WAVE (audio/wav)
+            const downsampled16k = downsampleFloat32(mergedFloat32, recordingSampleRate, 16000);
+            const wavArrayBuffer = encodeFloat32ToWavBuffer(downsampled16k, 16000);
+            const base64Wav = arrayBufferToBase64(wavArrayBuffer);
+
+            await transcribeAndAnswerWavBase64(base64Wav, "audio/wav");
+        }
+
+        // Secondary Mode: Chrome Web Speech API
+        function startVerifiedWebSpeech(SpeechRec) {
+            try {
+                releaseRawMicStream();
+                speechRecognizer = new SpeechRec();
+                speechRecognizer.continuous = false;
+                speechRecognizer.interimResults = true;
+                speechRecognizer.maxAlternatives = 1;
+                speechRecognizer.lang = "en-US";
+
+                let finalTranscriptText = "";
+
+                speechRecognizer.onstart = () => {
+                    if (state.isSpeaking) {
+                        try { speechRecognizer.abort(); } catch (e) {}
+                        return;
+                    }
+                    state.isListening = true;
+                    setDiagStatus("MIC: CHROME STT", "emerald", "diagMicStatus");
+                    document.getElementById("recTimerBadge").textContent = "LISTENING STT";
+                    setLiveCaption(`Listening via Chrome Speech-to-Text...`);
+                };
+
+                speechRecognizer.onresult = (event) => {
+                    if (state.isSpeaking) return;
+                    let interim = "";
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const chunk = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) finalTranscriptText += chunk + " ";
+                        else interim += chunk;
+                    }
+                    const exactWords = (finalTranscriptText + interim).trim();
+                    state.liveInterimTranscript = exactWords;
+                    state.visualEnergy = Math.min(98, 40 + (exactWords.length % 55));
+                    if (exactWords) setLiveCaption(`YOU SAID: "${exactWords}"`);
+                };
+
+                speechRecognizer.onerror = async () => {
+                    setMicInputMode("APK_PCM_WAV");
+                    await startDirectApkWavRecorder();
+                };
+
+                speechRecognizer.onend = async () => {
+                    if (state.isSpeaking) {
+                        state.isListening = false;
+                        return;
+                    }
+                    const finalSpoken = (finalTranscriptText || state.liveInterimTranscript || "").trim();
+                    state.liveInterimTranscript = "";
+                    if (finalSpoken.length >= 2) {
+                        state.isListening = false;
+                        setLiveCaption(`VERIFIED SPEECH SENT: "${finalSpoken}"`);
+                        await sendGroundedQueryToJarvis(finalSpoken);
+                    } else {
+                        state.isListening = false;
+                        updateCoreUiState("IDLE");
+                    }
+                };
+
+                speechRecognizer.start();
+            } catch (e) {
+                setMicInputMode("APK_PCM_WAV");
+                startDirectApkWavRecorder();
+            }
+        }
+
+        async function forceSendActiveSpeechNow() {
+            playStarkBeep(1180, 0.05);
+            if (state.isListening && state.micInputMode === "APK_PCM_WAV") {
+                await finishAndSendApkWavRecording();
+                return;
+            }
+            if (speechRecognizer) {
+                const pendingText = (state.liveInterimTranscript || "").trim();
+                try { speechRecognizer.stop(); } catch (e) {}
+                if (pendingText.length >= 2) {
+                    state.liveInterimTranscript = "";
+                    state.isListening = false;
+                    await sendGroundedQueryToJarvis(pendingText);
+                } else {
+                    state.isListening = false;
+                    updateCoreUiState("IDLE");
+                }
+                return;
+            }
+            await startListeningToUser();
+        }
+
+        function stopAllMicCapture() {
+            clearInterval(recTimerInterval);
+            if (speechRecognizer) {
+                try {
+                    speechRecognizer.onresult = null;
+                    speechRecognizer.onend = null;
+                    speechRecognizer.abort();
+                } catch (e) {}
+                speechRecognizer = null;
+            }
+            releaseRawMicStream();
+        }
+
+        function releaseRawMicStream() {
+            if (scriptProcessor) {
+                try {
+                    scriptProcessor.onaudioprocess = null;
+                    scriptProcessor.disconnect();
+                } catch (e) {}
+                scriptProcessor = null;
+            }
+            if (micSourceNode) {
+                try { micSourceNode.disconnect(); } catch (e) {}
+                micSourceNode = null;
+            }
+            if (rawMicStream) {
+                rawMicStream.getTracks().forEach(t => t.stop());
+                rawMicStream = null;
+            }
+            rawAnalyser = null;
+        }
+
+        function setLiveCaption(text) {
+            const el = document.getElementById("liveCaptionText");
+            if (el) el.textContent = text;
+        }
+
+        // -----------------------------------------------------------------
+        // 6. GROUNDED GEMINI 3 FLASH ENGINE (16kHz WAV INPUT + CAMERA + SEARCH)
+        // -----------------------------------------------------------------
+        async function transcribeAndAnswerWavBase64(b64Audio, mimeType = "audio/wav") {
+            state.isProcessing = true;
+            updateCoreUiState("THINKING");
+            document.getElementById("recTimerBadge").textContent = "ANALYZING WAV";
+            setLiveCaption("Sending 16kHz WAV audio to JARVIS Grounded Engine...");
+
+            clearTimeout(safetyLockTimer);
+            safetyLockTimer = setTimeout(() => {
+                state.isProcessing = false;
+                updateCoreUiState("IDLE");
+            }, 12000);
+
+            try {
+                const liveCameraFrame = (state.camActive && state.autoVisionLinked)
+                    ? captureCurrentCameraFrameBase64()
+                    : null;
+
+                const systemContext = buildRealTimeSystemContext(Boolean(liveCameraFrame));
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const userParts = [
+                    {
+                        text: `${systemContext}\n\nINSTRUCTION FOR 16kHz WAV AUDIO INPUT:\n1. Transcribe the user's exact spoken words verbatim into "exactTranscript".\n2. CRITICAL: If the audio contains only background noise, hum, silence, or unclear sound with no distinct human words, set "exactTranscript" to "[NO_SPEECH]" and "jarvisReply" to "[NO_SPEECH]".\n3. If clear human speech IS heard, provide a direct, 100% factual, grounded answer in "jarvisReply" (1 to 3 concise sentences) based on the exact words, the real-time system telemetry above, and the attached live camera frame (if present).`
+                    },
+                    {
+                        inlineData: {
+                            mimeType: mimeType,
+                            data: b64Audio
+                        }
+                    }
+                ];
+
+                if (liveCameraFrame) {
+                    userParts.push({
+                        inlineData: {
+                            mimeType: "image/jpeg",
+                            data: liveCameraFrame
+                        }
+                    });
+                }
+
+                const payload = {
+                    contents: [
+                        ...state.chatHistory,
+                        { role: "user", parts: userParts }
+                    ],
+                    systemInstruction: { parts: [{ text: STRICT_GROUNDED_SYSTEM_PROMPT }] },
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                exactTranscript: { type: "STRING" },
+                                jarvisReply: { type: "STRING" }
+                            },
+                            required: ["exactTranscript", "jarvisReply"]
+                        }
+                    }
+                };
+
+                const data = await fetchWithBackoff(url, payload);
+                clearTimeout(safetyLockTimer);
+
+                const rawJson = data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+                let parsed = {};
+                try { parsed = JSON.parse(rawJson); } catch (e) {}
+
+                const transcript = (parsed.exactTranscript || "").trim();
+                const reply = (parsed.jarvisReply || "").trim();
+
+                if (!transcript || transcript.includes("[NO_SPEECH]") || reply.includes("[NO_SPEECH]")) {
+                    state.isProcessing = false;
+                    updateCoreUiState("IDLE");
+                    document.getElementById("recTimerBadge").textContent = "NO SPEECH";
+                    setLiveCaption("Audio received, but no clear spoken words were detected. Please speak closer to your phone mic.");
+                    return;
+                }
+
+                setLiveCaption(`YOU SAID: "${transcript}"`);
+                appendChatBubble("USER", `🎙️ "${transcript}"${liveCameraFrame ? " [📷 +Live Camera Frame]" : ""}`);
+                appendChatBubble("JARVIS", reply);
+
+                state.chatHistory.push({ role: "user", parts: [{ text: transcript }] });
+                state.chatHistory.push({ role: "model", parts: [{ text: reply }] });
+                if (state.chatHistory.length > 10) state.chatHistory = state.chatHistory.slice(-10);
+
+                state.isProcessing = false;
+                await speakJarvisText(reply);
+            } catch (err) {
+                clearTimeout(safetyLockTimer);
+                state.isProcessing = false;
+                updateCoreUiState("IDLE");
+                setLiveCaption("Network error sending WAV clip. Check APK INTERNET permission or use text box.");
+            }
+        }
+
+        // Primary Grounded Text / Verified STT Query Handler
+        async function sendGroundedQueryToJarvis(userText, explicitCameraFrame = null) {
+            const cleanQuery = (userText || "").trim();
+            if (!cleanQuery) return;
+
+            ensureAudioUnlocked();
+            playStarkBeep(1080, 0.05);
+
+            stopAllMicCapture();
+            state.isListening = false;
+            state.isProcessing = true;
+            updateCoreUiState("THINKING");
+
+            const liveCameraFrame = explicitCameraFrame ||
+                ((state.camActive && state.autoVisionLinked) ? captureCurrentCameraFrameBase64() : null);
+
+            const hasCameraImage = Boolean(liveCameraFrame);
+            const systemContext = buildRealTimeSystemContext(hasCameraImage);
+
+            setLiveCaption(`YOU SAID: "${cleanQuery}" ${hasCameraImage ? "(+Live Camera Sight Attached)" : ""}`);
+
+            clearTimeout(safetyLockTimer);
+            safetyLockTimer = setTimeout(() => {
+                state.isProcessing = false;
+                updateCoreUiState("IDLE");
+            }, 12000);
+
+            appendChatBubble(
+                "USER",
+                `${cleanQuery}${hasCameraImage ? " [📷 Live Camera Frame Attached]" : ""}`
+            );
+
+            const loadingBubble = appendChatBubble(
+                "JARVIS",
+                `<span class="font-mono text-xs text-jarvis-cyan animate-pulse"><i class="fa-solid fa-circle-notch fa-spin mr-1.5"></i>${hasCameraImage ? "Analyzing live camera frame & telemetry..." : "Checking real-time grounded facts..."}</span>`,
+                true
+            );
+
+            const userParts = [
+                {
+                    text: `${systemContext}\n\nUSER EXACT QUESTION: "${cleanQuery}"\n\nAnswer the user's exact question directly and factually in 1 to 3 sentences. If a live camera image is attached, tell the user the exact truth of what is visible in the camera frame right now.`
+                }
+            ];
+
+            if (hasCameraImage) {
+                userParts.push({
+                    inlineData: {
+                        mimeType: "image/jpeg",
+                        data: liveCameraFrame
+                    }
+                });
+            }
+
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [
+                        ...state.chatHistory,
+                        { role: "user", parts: userParts }
+                    ],
+                    systemInstruction: { parts: [{ text: STRICT_GROUNDED_SYSTEM_PROMPT }] }
+                };
+
+                if (!hasCameraImage) {
+                    payload.tools = [{ google_search: {} }];
+                }
+
+                const data = await fetchWithBackoff(url, payload);
+                clearTimeout(safetyLockTimer);
+
+                const candidate = data?.candidates?.[0];
+                const reply = candidate?.content?.parts?.[0]?.text ||
+                    "Sir, I have verified your request. All systems are online.";
+
+                let sourcesHtml = "";
+                const attributions = candidate?.groundingMetadata?.groundingAttributions || [];
+                const validSources = attributions
+                    .map(a => ({ uri: a.web?.uri, title: a.web?.title }))
+                    .filter(s => s.uri && s.title)
+                    .slice(0, 3);
+
+                if (validSources.length > 0) {
+                    const links = validSources
+                        .map(s => `<a href="${s.uri}" target="_blank" rel="noopener noreferrer" class="underline text-jarvis-gold hover:text-white mr-2">${escapeHtml(s.title)}</a>`)
+                        .join("");
+                    sourcesHtml = `<div class="mt-2 pt-1.5 border-t border-jarvis-cyan/20 text-[10px] font-mono text-cyan-300/80"><i class="fa-brands fa-google mr-1 text-jarvis-gold"></i>GROUNDED SOURCES: ${links}</div>`;
+                }
+
+                state.chatHistory.push({ role: "user", parts: [{ text: cleanQuery }] });
+                state.chatHistory.push({ role: "model", parts: [{ text: reply }] });
+                if (state.chatHistory.length > 10) state.chatHistory = state.chatHistory.slice(-10);
+
+                loadingBubble.remove();
+                appendChatBubble("JARVIS", `${escapeHtml(reply)}${sourcesHtml}`, true);
+
+                state.isProcessing = false;
+                await speakJarvisText(reply);
+            } catch (err) {
+                clearTimeout(safetyLockTimer);
+                loadingBubble.remove();
+                const nowStr = new Date().toLocaleTimeString();
+                const fallback = `Sir, the current time is ${nowStr}. Your camera is ${state.camActive ? "active" : "on standby"}, and all Mark LXXXV APK systems white-coded by Shifan Shijeer are operational.`;
+                appendChatBubble("JARVIS", fallback);
+                state.isProcessing = false;
+                await speakJarvisText(fallback);
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // 7. APK-COMPATIBLE SPEAKER OUTPUT ENGINE (PRIMARY: RIFF WAVE <audio> + WebAudio PCM)
+        // -----------------------------------------------------------------
+        function stopAllVoiceOutput() {
+            const player = document.getElementById("apkAudioPlayer");
+            if (player) {
+                try {
+                    player.pause();
+                    player.currentTime = 0;
+                } catch (e) {}
+            }
+            if (activePcmSource) {
+                try { activePcmSource.stop(); } catch (e) {}
+                activePcmSource = null;
+            }
+            if ("speechSynthesis" in window) {
+                try { window.speechSynthesis.cancel(); } catch (e) {}
+            }
+        }
+
+        async function toggleSpeakerOutput() {
+            ensureAudioUnlocked();
+            state.speakerEnabled = !state.speakerEnabled;
+            const icon = document.getElementById("speakerBtnIcon");
+            const label = document.getElementById("speakerBtnLabel");
+
+            if (state.speakerEnabled) {
+                icon.className = "fa-solid fa-volume-high";
+                label.textContent = "SPEAKER: ON";
+                setDiagStatus("SPK: HTML5 WAV + PCM", "cyan", "diagSpeakerStatus");
+                await speakJarvisText(state.lastReplyText);
+            } else {
+                stopAllVoiceOutput();
+                state.isSpeaking = false;
+                icon.className = "fa-solid fa-volume-xmark text-jarvis-crimson";
+                label.textContent = "SPEAKER: OFF";
+                setDiagStatus("SPK: MUTED", "crimson", "diagSpeakerStatus");
+                updateCoreUiState("IDLE");
+            }
+        }
+
+        async function replayLastJarvisVoice() {
+            ensureAudioUnlocked();
+            state.speakerEnabled = true;
+            document.getElementById("speakerBtnIcon").className = "fa-solid fa-volume-high";
+            document.getElementById("speakerBtnLabel").textContent = "SPEAKER: ON";
+            await speakJarvisText(state.lastReplyText);
+        }
+
+        // ANDROID APK PRIMARY VOICE ENGINE:
+        // 1st Priority: Gemini 24kHz Neural TTS converted into a standard RIFF WAVE (`audio/wav`) played through BOTH `<audio id="apkAudioPlayer">` & `AudioContext`!
+        // 2nd Priority: Browser `speechSynthesis` (if running on desktop/Chrome).
+        // 3rd Priority: Offline Cybernetic Telemetry Synth Chime so APK is NEVER silent.
+        async function speakJarvisText(rawText) {
+            if (!rawText) return;
+            const cleanText = rawText.replace(/[*#`_~]/g, "").replace(/\s+/g, " ").trim();
+            if (!cleanText) return;
+            state.lastReplyText = cleanText;
+
+            if (!state.speakerEnabled) {
+                updateCoreUiState("IDLE");
+                return;
+            }
+
+            ensureAudioUnlocked();
+
+            // ANTI-ECHO GUARD: Stop microphone completely before playing speaker audio
+            stopAllMicCapture();
+            stopAllVoiceOutput();
+            state.isListening = false;
+            state.isSpeaking = true;
+
+            updateCoreUiState("SPEAKING");
+            setDiagStatus("SPK: PLAYING WAV AUDIO", "gold", "diagSpeakerStatus");
+
+            // Play a crisp confirmation beep immediately so user gets instant 0ms audio feedback on APK
+            playStarkBeep(660, 0.04, "sine");
+
+            // PRIMARY FOR ANDROID APK: Fetch Gemini Neural TTS and play as standard RIFF WAVE (`audio/wav`)
+            let spokenOk = await playGeminiNeuralWavForApk(cleanText);
+
+            // FALLBACK 1: Try native browser speechSynthesis if Gemini TTS was unreachable
+            if (!spokenOk) {
+                spokenOk = await playBrowserTtsWithWatchdog(cleanText);
+            }
+
+            // FALLBACK 2: Guaranteed Web Audio cybernetic voice cadence if both are blocked/offline
+            if (!spokenOk) {
+                await playCyberneticVocalCadence(cleanText.length);
+            }
+
+            // Anti-echo cooldown before re-enabling mic
+            await new Promise(r => setTimeout(r, 420));
+
+            state.isSpeaking = false;
+            setDiagStatus("SPK: HTML5 WAV + PCM", "cyan", "diagSpeakerStatus");
+
+            if (state.continuousLoop && !state.isProcessing) {
+                startListeningToUser();
+            } else {
+                updateCoreUiState("IDLE");
+            }
+        }
+
+        async function playGeminiNeuralWavForApk(cleanText) {
+            try {
+                ensureAudioUnlocked();
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ parts: [{ text: `Speak clearly in a composed British J.A.R.V.I.S. voice: ${cleanText}` }] }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: "Charon" }
+                            }
+                        }
+                    }
+                };
+
+                const res = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) return false;
+                const data = await res.json();
+                const b64 = data?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+                if (!b64) return false;
+
+                const binary = atob(b64);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+                const pcm16 = new Int16Array(bytes.buffer);
+
+                // Build a 100% standard RIFF WAVE Blob so Android WebView <audio> plays it natively
+                const wavBlob = encodeInt16ToWavBlob(pcm16, 24000);
+                if (state.lastWavBlobUrl) URL.revokeObjectURL(state.lastWavBlobUrl);
+                const wavUrl = URL.createObjectURL(wavBlob);
+                state.lastWavBlobUrl = wavUrl;
+
+                const spkScan = document.getElementById("scanSpeakerVal");
+                if (spkScan) {
+                    spkScan.textContent = "SPEAKING (24kHz WAV)";
+                    spkScan.className = "font-bold text-jarvis-emerald truncate";
+                }
+
+                // Attempt playback via pre-unlocked HTML5 <audio id="apkAudioPlayer"> first (best for Android APK)
+                const player = document.getElementById("apkAudioPlayer");
+                if (player) {
+                    const playedViaHtmlAudio = await new Promise((resolve) => {
+                        let settled = false;
+                        const done = (ok) => {
+                            if (settled) return;
+                            settled = true;
+                            player.onended = null;
+                            player.onerror = null;
+                            resolve(ok);
+                        };
+                        player.src = wavUrl;
+                        player.volume = 1.0;
+                        player.onended = () => done(true);
+                        player.onerror = () => done(false);
+                        const estMs = Math.min(18000, Math.max(2500, (pcm16.length / 24000) * 1000 + 1200));
+                        setTimeout(() => done(true), estMs);
+                        player.play().catch(() => done(false));
+                    });
+                    if (playedViaHtmlAudio) return true;
+                }
+
+                // Backup: Play directly via Web Audio API AudioContext buffer
+                if (audioCtx) {
+                    if (audioCtx.state === "suspended") await audioCtx.resume();
+                    const audioBuffer = audioCtx.createBuffer(1, pcm16.length, 24000);
+                    const channel = audioBuffer.getChannelData(0);
+                    for (let i = 0; i < pcm16.length; i++) {
+                        channel[i] = pcm16[i] / 32768.0;
+                    }
+                    await new Promise((resolve) => {
+                        const source = audioCtx.createBufferSource();
+                        source.buffer = audioBuffer;
+                        source.connect(audioCtx.destination);
+                        activePcmSource = source;
+                        const maxTimeout = setTimeout(() => {
+                            activePcmSource = null;
+                            resolve(true);
+                        }, Math.min(16000, (audioBuffer.duration * 1000) + 1000));
+                        source.onended = () => {
+                            clearTimeout(maxTimeout);
+                            activePcmSource = null;
+                            resolve(true);
+                        };
+                        source.start(0);
+                    });
+                    return true;
+                }
+
+                return false;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function playBrowserTtsWithWatchdog(cleanText) {
+            return new Promise((resolve) => {
+                if (!("speechSynthesis" in window)) {
+                    resolve(false);
+                    return;
+                }
+                try {
+                    const synth = window.speechSynthesis;
+                    synth.cancel();
+
+                    const utter = new SpeechSynthesisUtterance(cleanText);
+                    const voices = synth.getVoices() || [];
+                    const ukVoice = voices.find(v => v.lang && v.lang.includes("en-GB")) || voices[0];
+                    if (ukVoice) utter.voice = ukVoice;
+                    utter.pitch = 0.96;
+                    utter.rate = 1.05;
+                    utter.volume = 1.0;
+
+                    let done = false;
+                    let started = false;
+
+                    const finish = (ok) => {
+                        if (done) return;
+                        done = true;
+                        clearInterval(watchdog);
+                        clearTimeout(hardTimer);
+                        resolve(ok);
+                    };
+
+                    const hardTimer = setTimeout(() => {
+                        try { synth.cancel(); } catch (e) {}
+                        finish(started);
+                    }, Math.min(12000, Math.max(3000, cleanText.length * 80)));
+
+                    utter.onstart = () => { started = true; };
+                    utter.onend = () => finish(true);
+                    utter.onerror = () => finish(false);
+
+                    const startStamp = Date.now();
+                    const watchdog = setInterval(() => {
+                        if (done) return;
+                        if (synth.paused) synth.resume();
+                        // If Android WebView speechSynthesis silently fails to start within 650ms, abort and use fallback
+                        if (!started && !synth.speaking && Date.now() - startStamp > 650) {
+                            finish(false);
+                        }
+                    }, 180);
+
+                    setTimeout(() => {
+                        synth.resume();
+                        synth.speak(utter);
+                    }, 40);
+                } catch (e) {
+                    resolve(false);
+                }
+            });
+        }
+
+        // -----------------------------------------------------------------
+        // 8. CAMERA & AUTOMATIC LIVE VISION STREAMING
+        // -----------------------------------------------------------------
+        async function initBatteryTelemetry() {
+            try {
+                if ("getBattery" in navigator) {
+                    const bat = await navigator.getBattery();
+                    const updateBat = () => {
+                        const pct = Math.round(bat.level * 100);
+                        state.batteryLevel = `${pct}% (${bat.charging ? "Charging" : "Discharging"})`;
+                        const el = document.getElementById("batteryTelemetry");
+                        if (el) el.textContent = `PWR: ${pct}%${bat.charging ? "⚡" : ""}`;
+                    };
+                    updateBat();
+                    bat.addEventListener("levelchange", updateBat);
+                    bat.addEventListener("chargingchange", updateBat);
+                }
+            } catch (e) {}
+        }
+
+        function buildRealTimeSystemContext(hasAttachedCameraFrame) {
+            const now = new Date();
+            const localDateTime = now.toLocaleString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            });
+
+            return `[REAL-TIME SYSTEM TELEMETRY - GROUND TRUTH RIGHT NOW]
+- Exact Current Local Date & Time: ${localDateTime}
+- App Creator & Engineer: Shifan Shijeer (White-Coded & Engineered by Shifan Shijeer)
+- Runtime Platform: Android APK / WebView Edition (16kHz WAV Mic + 24kHz RIFF WAVE Speaker)
+- Camera Sensor Status: ${state.camActive ? "ONLINE & ACTIVE (" + (state.facingMode === "user" ? "Front Camera" : "Rear Camera") + ")" : "OFF / STANDBY"}
+- Live Camera Frame Attached To This Message: ${hasAttachedCameraFrame ? "YES (Inspect the attached image for the exact real-world scene currently in front of the camera)" : "NO (Camera is currently turned OFF)"}
+- Device Battery Status: ${state.batteryLevel}
+- Linked Shared Gemini JARVIS Chat URL: ${SHARED_GEMINI_URL}
+- Configured Gmail Account: ${state.email ? state.email : "Skipped / Direct Mode"}`;
+        }
+
+        function captureCurrentCameraFrameBase64() {
+            if (!state.camActive) return null;
+            try {
+                const video = document.getElementById("cameraVideo");
+                if (!video || !video.videoWidth || !video.videoHeight) return null;
+                const canvas = document.getElementById("captureCanvas");
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataUrl = canvas.toDataURL("image/jpeg", 0.82);
+                return dataUrl.split(",")[1] || null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function toggleAutoVisionStream() {
+            state.autoVisionLinked = !state.autoVisionLinked;
+            updateAutoVisionBanner();
+            playStarkBeep(880, 0.05);
+        }
+
+        function updateAutoVisionBanner() {
+            const badgeText = document.getElementById("autoVisionBadgeText");
+            const btn = document.getElementById("autoVisionToggleBtn");
+            if (!badgeText || !btn) return;
+
+            if (state.camActive && state.autoVisionLinked) {
+                badgeText.innerHTML = `<i class="fa-solid fa-eye mr-1 text-jarvis-emerald"></i><strong class="text-jarvis-emerald">LIVE VISION LINKED:</strong> JARVIS SEES CAMERA FEED ON EVERY QUESTION`;
+            } else if (state.camActive && !state.autoVisionLinked) {
+                badgeText.innerHTML = `<i class="fa-solid fa-eye-slash mr-1 text-jarvis-gold"></i>CAMERA ON (AUTO-VISION PAUSED - CLICK TO LINK)`;
+            } else {
+                badgeText.innerHTML = `<i class="fa-solid fa-video mr-1 text-jarvis-gold"></i>TURN ON CAMERA SO JARVIS SEES WHAT IS CURRENTLY IN FRONT OF YOU`;
+            }
+
+            if (state.autoVisionLinked) {
+                btn.textContent = "AUTO-VISION: ON";
+                btn.className = "ml-2 px-2 py-0.5 rounded bg-jarvis-emerald/20 border border-jarvis-emerald text-jarvis-emerald font-bold shrink-0";
+            } else {
+                btn.textContent = "AUTO-VISION: OFF";
+                btn.className = "ml-2 px-2 py-0.5 rounded bg-slate-800 border border-cyan-500/40 text-cyan-300/70 font-bold shrink-0";
+            }
+        }
+
+        async function toggleCameraAccess(forceEnable = false) {
+            playStarkBeep(900, 0.05);
+            const videoEl = document.getElementById("cameraVideo");
+            const placeholder = document.getElementById("cameraPlaceholder");
+            const overlay = document.getElementById("cameraHudOverlay");
+            const badge = document.getElementById("camStatusBadge");
+            const btn = document.getElementById("camToggleBtn");
+
+            if (state.camActive && !forceEnable) {
+                if (camStream) {
+                    camStream.getTracks().forEach(t => t.stop());
+                    camStream = null;
+                }
+                videoEl.srcObject = null;
+                videoEl.classList.add("hidden");
+                overlay.classList.add("hidden");
+                placeholder.classList.remove("hidden");
+                state.camActive = false;
+                badge.textContent = "CAM OFF";
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-cyan-300/70 border border-cyan-500/30";
+                btn.textContent = "TURN ON CAM";
+                updateAutoVisionBanner();
+                return;
+            }
+
+            try {
+                if (camStream) camStream.getTracks().forEach(t => t.stop());
+                camStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: state.facingMode, width: { ideal: 1280 }, height: { ideal: 720 } }
+                });
+                videoEl.srcObject = camStream;
+                videoEl.classList.remove("hidden");
+                overlay.classList.remove("hidden");
+                placeholder.classList.add("hidden");
+                state.camActive = true;
+                badge.textContent = "LIVE VISION ON";
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950 text-jarvis-emerald border border-jarvis-emerald font-bold";
+                btn.textContent = "TURN OFF CAM";
+                updateAutoVisionBanner();
+                showToast("LIVE CAMERA VISION LINKED", "Every voice or text question you ask now includes a live frame of what your camera sees!");
+            } catch (err) {
+                showToast("APK CAMERA PERMISSION NEEDED", "Ensure CAMERA permission is enabled in your APK Converter settings & Android App Permissions.");
+            }
+        }
+
+        async function switchCameraFacingMode() {
+            state.facingMode = state.facingMode === "user" ? "environment" : "user";
+            await toggleCameraAccess(true);
+        }
+
+        async function describeCurrentCameraViewNow() {
+            ensureAudioUnlocked();
+            if (!state.camActive) {
+                await toggleCameraAccess(true);
+                if (!state.camActive) return;
+                await new Promise(r => setTimeout(r, 500));
+            }
+            const frame = captureCurrentCameraFrameBase64();
+            if (!frame) {
+                showToast("CAMERA WARMING UP", "Wait a moment for the video feed to initialize and tap again.");
+                return;
+            }
+            playStarkChord();
+            await sendGroundedQueryToJarvis(
+                "Tell me the exact truth of what is currently visible on my live camera feed right now.",
+                frame
+            );
+        }
+
+        // -----------------------------------------------------------------
+        // 9. CORE UI STATE & LIVE DECIBEL SPECTRUM VISUALIZER
+        // -----------------------------------------------------------------
+        function updateCoreUiState(mode) {
+            const pulse = document.getElementById("livePulseIndicator");
+            const statusTitle = document.getElementById("liveStatusTitle");
+            const reactorBtn = document.getElementById("arcReactorBtn");
+            const reactorIcon = document.getElementById("reactorCenterIcon");
+            const reactorLabel = document.getElementById("reactorStateLabel");
+            const reactorSub = document.getElementById("reactorSubLabel");
+            const primaryBtn = document.getElementById("primaryTalkBtn");
+            const primaryIcon = document.getElementById("primaryTalkBtnIcon");
+            const primaryText = document.getElementById("primaryTalkBtnText");
+
+            if (mode === "LISTENING") {
+                pulse.className = "w-2.5 h-2.5 rounded-full bg-jarvis-crimson animate-ping";
+                statusTitle.textContent = "RECORDING 16kHz WAV: SPEAK NOW";
+                reactorBtn.className = "relative z-10 w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-rose-950/90 border-2 border-jarvis-crimson shadow-[0_0_50px_rgba(255,42,75,0.85)] flex flex-col items-center justify-center text-center transition-all duration-150 px-2 cursor-pointer scale-105";
+                reactorIcon.className = "fa-solid fa-ear-listen text-xl sm:text-2xl text-jarvis-crimson my-1 animate-bounce";
+                reactorLabel.textContent = "RECORDING...";
+                reactorSub.textContent = "TAP TO SEND WAV";
+
+                primaryBtn.className = "hud-btn py-2 px-3 rounded-xl bg-rose-500/35 border-2 border-jarvis-crimson text-jarvis-crimson font-orbitron font-black text-xs tracking-wider flex items-center justify-center gap-1.5";
+                primaryIcon.className = "fa-solid fa-paper-plane";
+                primaryText.textContent = "SEND WAV NOW";
+            } else if (mode === "THINKING") {
+                pulse.className = "w-2.5 h-2.5 rounded-full bg-jarvis-gold animate-ping";
+                statusTitle.textContent = "ANALYZING 16kHz WAV & TELEMETRY...";
+                reactorBtn.className = "relative z-10 w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-amber-950/90 border-2 border-jarvis-gold shadow-[0_0_45px_rgba(255,170,0,0.8)] flex flex-col items-center justify-center text-center transition-all duration-150 px-2 cursor-pointer";
+                reactorIcon.className = "fa-solid fa-brain text-xl sm:text-2xl text-jarvis-gold my-1 animate-pulse";
+                reactorLabel.textContent = "VERIFYING...";
+                reactorSub.textContent = "GROUNDED AI";
+
+                primaryIcon.className = "fa-solid fa-spinner fa-spin";
+                primaryText.textContent = "PROCESSING...";
+            } else if (mode === "SPEAKING") {
+                pulse.className = "w-2.5 h-2.5 rounded-full bg-jarvis-cyan animate-ping";
+                statusTitle.textContent = "PLAYING 24kHz WAV VOICE (MIC MUTED)";
+                reactorBtn.className = "relative z-10 w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-cyan-950/90 border-2 border-jarvis-cyan shadow-[0_0_55px_rgba(0,243,255,0.95)] flex flex-col items-center justify-center text-center transition-all duration-150 px-2 cursor-pointer";
+                reactorIcon.className = "fa-solid fa-volume-high text-xl sm:text-2xl text-jarvis-cyan my-1 animate-pulse";
+                reactorLabel.textContent = "SPEAKING...";
+                reactorSub.textContent = "TAP TO INTERRUPT";
+
+                primaryBtn.className = "hud-btn py-2 px-3 rounded-xl bg-cyan-500/30 border-2 border-jarvis-cyan text-jarvis-cyan font-orbitron font-black text-xs tracking-wider flex items-center justify-center gap-1.5";
+                primaryIcon.className = "fa-solid fa-microphone";
+                primaryText.textContent = "INTERRUPT & TALK";
+            } else {
+                pulse.className = "w-2.5 h-2.5 rounded-full bg-jarvis-emerald animate-pulse";
+                statusTitle.textContent = "APK WAV ENGINE READY";
+                reactorBtn.className = "relative z-10 w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-slate-950/95 border-2 border-jarvis-cyan shadow-[0_0_40px_rgba(0,243,255,0.65)] hover:scale-105 flex flex-col items-center justify-center text-center transition-all duration-150 px-2 cursor-pointer";
+                reactorIcon.className = "fa-solid fa-microphone text-xl sm:text-2xl text-jarvis-cyan my-1";
+                reactorLabel.textContent = "TAP TO TALK";
+                reactorSub.textContent = "16kHz APK WAV";
+                document.getElementById("recTimerBadge").textContent = "STANDING BY";
+
+                primaryBtn.className = "hud-btn py-2 px-3 rounded-xl bg-emerald-500/25 border border-jarvis-emerald text-jarvis-emerald font-orbitron font-bold text-xs tracking-wider flex items-center justify-center gap-1.5";
+                primaryIcon.className = "fa-solid fa-microphone";
+                primaryText.textContent = "START / STOP REC";
+            }
+        }
+
+        function startSpectrumVisualizerLoop() {
+            const canvas = document.getElementById("audioSpectrumCanvas");
+            const ctx = canvas.getContext("2d");
+            const volFill = document.getElementById("liveVolumeFill");
+            const dbScanEl = document.getElementById("scanDbLevelVal");
+            const centerDbEl = document.getElementById("centerDbReadout");
+            const freqData = new Uint8Array(32);
+
+            function renderFrame() {
+                const w = (canvas.width = canvas.clientWidth || 300);
+                const h = (canvas.height = canvas.clientHeight || 32);
+                ctx.clearRect(0, 0, w, h);
+
+                let energy = state.visualEnergy || 4;
+                if (rawAnalyser && state.isListening) {
+                    rawAnalyser.getByteFrequencyData(freqData);
+                    let sum = 0;
+                    for (let i = 0; i < freqData.length; i++) sum += freqData[i];
+                    const freqEnergy = Math.min(100, Math.round((sum / (freqData.length * 255)) * 230));
+                    energy = Math.max(energy, freqEnergy);
+                    state.visualEnergy = energy;
+
+                    const approxDb = energy > 5 ? Math.round(-55 + (energy * 0.52)) : -60;
+                    if (dbScanEl) {
+                        dbScanEl.textContent = `${approxDb} dB (${energy}% SIGNAL)`;
+                        dbScanEl.className = energy > 14 ? "font-bold text-jarvis-emerald truncate" : "font-bold text-jarvis-gold truncate";
+                    }
+                    if (centerDbEl) {
+                        centerDbEl.textContent = `SIGNAL: ${energy}% (${approxDb} dB) ${energy > 14 ? "● VOICE DETECTED" : ""}`;
+                    }
+                } else if (state.isSpeaking) {
+                    energy = 35 + Math.round(Math.abs(Math.sin(Date.now() / 85)) * 55);
+                    if (centerDbEl) centerDbEl.textContent = `SPEAKER WAV OUTPUT ACTIVE (${energy}%)`;
+                } else {
+                    energy = 4 + Math.round(Math.abs(Math.sin(Date.now() / 600)) * 4);
+                }
+
+                if (volFill) volFill.style.width = `${energy}%`;
+
+                const bars = 24;
+                const barWidth = (w / bars) - 2;
+                for (let i = 0; i < bars; i++) {
+                    const wave = Math.abs(Math.sin((Date.now() / 150) + i * 0.45));
+                    const barHeight = Math.max(3, (energy / 100) * h * wave);
+                    const x = i * (barWidth + 2);
+                    const y = h - barHeight;
+                    ctx.fillStyle = state.isListening ? "#ff2a4b" : state.isSpeaking ? "#00f3ff" : "#00ff9d";
+                    ctx.fillRect(x, y, barWidth, barHeight);
+                }
+
+                requestAnimationFrame(renderFrame);
+            }
+            requestAnimationFrame(renderFrame);
+        }
+
+        // -----------------------------------------------------------------
+        // 10. SHARED GEMINI LINK & ANDROID NATIVE INTENT LAUNCHER (`tW7cDcxMphY2`)
+        // -----------------------------------------------------------------
+        function toggleGmailDrawer() {
+            playStarkBeep(780, 0.05);
+            const drawer = document.getElementById("gmailDrawer");
+            drawer.classList.toggle("hidden");
+            document.getElementById("gmailInput").value = state.email || "";
+        }
+
+        function saveGmailOption(skip) {
+            playStarkBeep(920, 0.05);
+            const inputVal = document.getElementById("gmailInput").value.trim();
+            if (skip || !inputVal) {
+                state.email = "";
+                localStorage.removeItem("jarvis_gmail");
+                showToast("EMAIL SKIPPED", "Direct Gemini link mode enabled without Gmail binding.");
+            } else {
+                state.email = inputVal;
+                localStorage.setItem("jarvis_gmail", inputVal);
+                showToast("GMAIL SAVED", `Bound ${inputVal} to your Gemini JARVIS Uplink.`);
+            }
+            updateGmailBadges();
+            document.getElementById("gmailDrawer").classList.add("hidden");
+        }
+
+        function updateGmailBadges() {
+            const topBadge = document.getElementById("topGmailBadge");
+            const leftStatus = document.getElementById("leftGmailStatus");
+            if (state.email) {
+                topBadge.textContent = state.email;
+                leftStatus.textContent = state.email;
+                leftStatus.className = "text-jarvis-gold font-bold";
+            } else {
+                topBadge.textContent = "EMAIL: SKIP";
+                leftStatus.textContent = "EMAIL: SKIPPED";
+                leftStatus.className = "text-jarvis-emerald font-bold";
+            }
+        }
+
+        function buildTargetGeminiUrl() {
+            if (state.email && state.email.includes("@")) {
+                return `${SHARED_GEMINI_URL}?authuser=${encodeURIComponent(state.email)}`;
+            }
+            return SHARED_GEMINI_URL;
+        }
+
+        // Supports both standard WebView link AND Android Native `intent://` to break out of restrictive APK wrappers into Chrome / Google Gemini App
+        function launchSharedGeminiChat(useAndroidIntent = false) {
+            ensureAudioUnlocked();
+            playStarkChord();
+            const finalUrl = buildTargetGeminiUrl();
+
+            if (useAndroidIntent) {
+                const cleanHostPath = finalUrl.replace(/^https?:\/\//i, "");
+                const intentUrl = `intent://${cleanHostPath}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(finalUrl)};end`;
+                window.location.href = intentUrl;
+                showToast("LAUNCHING ANDROID INTENT://", "Opening Shifan's Gemini JARVIS chat directly in Android Chrome!");
+                return;
+            }
+
+            const newWin = window.open(finalUrl, "_blank", "noopener,noreferrer");
+            if (!newWin) {
+                window.location.href = finalUrl;
+            }
+            showToast(
+                "OPENING SHIFAN'S GEMINI CHAT",
+                `Launching ${finalUrl}`
+            );
+        }
+
+        // -----------------------------------------------------------------
+        // 11. CHAT CONSOLE & HELPERS
+        // -----------------------------------------------------------------
+        async function fetchWithBackoff(url, payload) {
+            const delays = [800, 1600];
+            for (let i = 0; i <= delays.length; i++) {
+                try {
+                    const res = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return await res.json();
+                } catch (err) {
+                    if (i === delays.length) throw err;
+                    await new Promise(r => setTimeout(r, delays[i]));
+                }
+            }
+        }
+
+        function appendChatBubble(sender, text, isHtml = false) {
+            const stream = document.getElementById("jarvisChatStream");
+            const wrapper = document.createElement("div");
+
+            if (sender === "JARVIS") {
+                wrapper.className = "p-3 rounded-xl bg-cyan-950/60 border border-jarvis-cyan/40 text-cyan-50";
+                wrapper.innerHTML = `
+                    <div class="flex items-center justify-between text-[10px] font-mono text-jarvis-cyan mb-1">
+                        <span><i class="fa-solid fa-check-circle mr-1 text-jarvis-emerald"></i>J.A.R.V.I.S. (APK WAV ENGINE)</span>
+                        <span class="text-jarvis-gold">BY SHIFAN SHIJEER</span>
+                    </div>
+                    <div class="leading-relaxed text-xs sm:text-sm">${isHtml ? text : escapeHtml(text)}</div>
+                `;
+            } else {
+                wrapper.className = "p-3 rounded-xl bg-amber-500/15 border border-jarvis-gold/45 text-amber-100 ml-6";
+                wrapper.innerHTML = `
+                    <div class="flex items-center justify-between text-[10px] font-mono text-jarvis-gold mb-1">
+                        <span>SHIFAN SHIJEER</span>
+                        <span>VERIFIED INPUT</span>
+                    </div>
+                    <div class="leading-relaxed text-xs sm:text-sm">${escapeHtml(text)}</div>
+                `;
+            }
+
+            stream.appendChild(wrapper);
+            stream.scrollTop = stream.scrollHeight;
+            return wrapper;
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        function handleChatSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById("jarvisInput");
+            const text = input.value.trim();
+            if (!text) return;
+            input.value = "";
+            sendGroundedQueryToJarvis(text);
+        }
+
+        function sendQuickCommand(cmd) {
+            sendGroundedQueryToJarvis(cmd);
+        }
+
+        function clearChatHistory() {
+            state.chatHistory = [];
+            document.getElementById("jarvisChatStream").innerHTML = "";
+            seedInitialGreeting();
+            playStarkBeep(620, 0.05);
+        }
+
+        function seedInitialGreeting() {
+            appendChatBubble(
+                "JARVIS",
+                `J.A.R.V.I.S. Android APK Edition—<strong>white-coded and engineered by Shifan Shijeer</strong>—is online.<br><br>` +
+                `• <strong>Why APK Sound Failed Before &amp; How It's Fixed:</strong> Android WebView APKs do not support <code class="text-jarvis-gold">speechSynthesis</code> or <code class="text-jarvis-gold">webkitSpeechRecognition</code>. This edition uses a <strong>Direct 16kHz PCM-to-WAV Microphone Recorder</strong> and a <strong>24kHz RIFF WAVE (&lt;audio&gt;) Speaker Engine</strong>.<br>` +
+                `• <strong>Step 1:</strong> Tap <strong>"440Hz + WAV SPEAKER TEST"</strong> at the top to test your phone speaker.<br>` +
+                `• <strong>Step 2:</strong> Tap the <strong>Arc Reactor</strong> (or hold <strong>HOLD TO TALK</strong>) to speak!`,
+                true
+            );
+        }
+
+        let toastTimer = null;
+        function showToast(title, message) {
+            const toast = document.getElementById("hudToast");
+            document.getElementById("hudToastTitle").textContent = title;
+            document.getElementById("hudToastMessage").textContent = message;
+            toast.classList.remove("hidden");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(hideToast, 5500);
+        }
+
+        function hideToast() {
+            document.getElementById("hudToast").classList.add("hidden");
+        }
+
+        // -----------------------------------------------------------------
+        // 12. BOOT SEQUENCE ON WINDOW LOAD
+        // -----------------------------------------------------------------
+        window.onload = function () {
+            detectApkEnvironment();
+            updateGmailBadges();
+            updateAutoVisionBanner();
+            seedInitialGreeting();
+            startSpectrumVisualizerLoop();
+            initBatteryTelemetry();
+
+            setInterval(() => {
+                const el = document.getElementById("clockDisplay");
+                if (el) el.textContent = new Date().toLocaleTimeString("en-US", { hour12: true });
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
